@@ -1,0 +1,38 @@
+<div class="label-modal-container">
+	<dl class="label-area">
+		<dt>标签：</dt>
+		<dd>
+			<cc-dropdown-select
+				model="vm.tag"
+				datalist="vm.searchPlatformConf"
+				mapping="{
+							valueField: 'platCode',
+							displayField: 'platName'
+						}"
+				placeholder="不限"
+				class="dropdown">
+			</cc-dropdown-select>
+		</dd>
+	</dl>
+	<dl class="label-area">
+		<dt>标签类型：</dt>
+		<dd>
+			<span ng-bind="vm.tagType">字符类型</span>
+		</dd>
+	</dl>
+	<dl class="label-area">
+		<dt>标签值：</dt>
+		<dd>
+			<cc-dropdown-select
+				model="vm.tagName"
+				datalist="vm.searchPlatformConf"
+				mapping="{
+							valueField: 'platCode',
+							displayField: 'platName'
+						}"
+				placeholder="不限"
+				class="dropdown">
+			</cc-dropdown-select>
+		</dd>
+	</dl>
+</div>

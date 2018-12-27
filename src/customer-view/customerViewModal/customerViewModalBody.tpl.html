@@ -1,0 +1,285 @@
+<div class="customer-view-modal-style">
+<cc-loading ng-if="vm.customerViewLoading" class="customer-view-modal-loading-style"></cc-loading>
+    <div ng-if="!vm.customerViewLoading">
+		<div class="customer-view-basic-info-style">
+			<div class="customer-avatar-style">
+				<img class="customer-avatar-image-style" ng-src="{{vm.avatarUrl}}" width="80px"/>
+			</div>
+			<div>
+				<ul class="customer-info-block-style">
+					<li ng-repeat="item in vm.customerIdsList track by $index">{{item.title}}：
+							<span
+							class="customer-info-copyable-style"
+							ng-if="item.value"
+							cc-tooltip="'双击可复制'"
+							tooltip-placement="top-left">
+							<cv-copyable
+							class="customer-info-title-style"
+							copy-text="item.value">
+							</span>
+						<span ng-if="!item.value">--</span>
+					</li>
+				</ul>
+				<ul class="customer-attr-info-block-style"
+					ng-mouseenter="vm.prepareEdit = true"
+					ng-mouseleave="vm.prepareEdit = false">
+					<li class="customer-attr-info-block-detail-style">
+					姓名：
+					<cc-loading ng-if="vm.fullNameLoading"></cc-loading>
+					<div
+					ng-if="!vm.fullNameLoading"
+					class="normal-attr-info-style">
+						<div ng-if="!vm.onFullNameEdit && !vm.fullNameLoading">
+							{{vm.customerBasicInfo.fullName ? vm.customerBasicInfo.fullName : "--"}}
+						</div>
+						<input
+						class="customer-attr-info-block-input-style"
+						id="fullName"
+						ng-if="vm.onFullNameEdit"
+						ng-model="vm.customerBasicInfo.fullName"
+						ng-keyup="vm.handleFullNameEdit($event)"/>
+						<span>
+							<i
+							ng-if="vm.prepareEdit && !vm.onFullNameEdit"
+							class="iconfont icon-edit1"
+							ng-click="vm.editFullName()"></i>
+							<i
+							ng-if="vm.prepareEdit && vm.onFullNameCheck && !vm.onFullNameEdit && vm.customerBasicInfo.fullName"
+							class="iconfont icon-icon_yulan"
+							ng-click="vm.checkFullName()"></i>
+							<i
+							ng-if="vm.prepareEdit && !vm.onFullNameCheck && !vm.onFullNameEdit && vm.customerBasicInfo.fullName"
+							class="iconfont icon-miwen"
+							ng-click="vm.checkFullName()"></i>
+						</span>
+						<i
+						ng-if="vm.onFullNameEdit"
+						class="iconfont icon-finish"
+						ng-click="vm.handleFullNameSave()"></i>
+						<i
+						ng-if="vm.onFullNameEdit"
+						class="iconfont icon-close"
+						ng-click="vm.cancelFullNameSave()"></i>
+					</div>
+					</li>
+					<li class="customer-attr-info-block-detail-style">
+					性别：
+						<cc-loading ng-if="vm.genderLoading"></cc-loading>
+						<div
+						class="normal-attr-info-style"
+						ng-if="!vm.genderLoading">
+							<div ng-if="!vm.onGenderEdit">{{vm.reformGender(vm.customerBasicInfo.gender)}}</div>
+							<cc-dropdown-select
+							class="customer-attr-info-block-input-style"
+							ng-if="vm.onGenderEdit"
+							model="vm.gender"
+							datalist="vm.customerSexList"
+							mapping="vm.fieldsMap">
+							</cc-dropdown-select>
+							<i
+							ng-if="vm.prepareEdit && !vm.onGenderEdit"
+							class="iconfont icon-edit1"
+							ng-click="vm.editGender()"
+							></i>
+							<i
+							ng-if="vm.onGenderEdit"
+							class="iconfont icon-finish"
+							ng-click="vm.handleGenderSave()"></i>
+							<i
+							ng-if="vm.onGenderEdit"
+							class="iconfont icon-close"
+							ng-click="vm.cancelGenderSave()"></i>
+						</div>
+					</li>
+					<li class="customer-attr-info-block-detail-style">
+					生日：
+						<cc-loading ng-if="vm.birthdayLoading"></cc-loading>
+						<div ng-if="!vm.birthdayLoading" class="normal-attr-info-style">
+							<div ng-if="!vm.onBirthdayEdit">{{vm.customerBasicInfo.birthday}}</div>
+							<cc-date-picker
+							class="customer-attr-info-block-input-style"
+							ng-if="vm.onBirthdayEdit"
+							ng-model="vm.birthday"
+							date-only="true"
+							max-date="vm.today"
+							></cc-date-picker>
+							<i
+							ng-if="vm.prepareEdit && !vm.onBirthdayEdit"
+							class="iconfont icon-edit1"
+							ng-click="vm.editBirthday()"
+							></i>
+							<i
+							ng-if="vm.onBirthdayEdit"
+							class="iconfont icon-finish"
+							ng-click="vm.handleBirthdaySave()"></i>
+							<i
+							ng-if="vm.onBirthdayEdit"
+							class="iconfont icon-close"
+							ng-click="vm.cancelBirthdaySave()"></i>
+						</div>
+					</li>
+					<li class="customer-attr-info-block-detail-style">
+					年龄：
+						<div>{{vm.customerBasicInfo.age}}</div>
+					</li>
+					<li class="customer-attr-info-block-detail-style">
+					手机号：
+						<cc-loading ng-if="vm.mobileLoading"></cc-loading>
+						<div ng-if="!vm.mobileLoading" class="normal-attr-info-style">
+							<div ng-if="!vm.onMobileEdit">{{vm.customerBasicInfo.mobile ? vm.customerBasicInfo.mobile : "--"}}</div>
+							<input
+							type="tel"
+							class="customer-attr-info-block-input-style"
+							ng-if="vm.onMobileEdit"
+							id="mobile"
+							ng-model="vm.customerBasicInfo.mobile"
+							ng-keyup="vm.handleMobileEdit($event)"/>
+							<span>
+								<i
+								ng-if="vm.prepareEdit && !vm.onMobileEdit"
+								class="iconfont icon-edit1"
+								ng-click="vm.editMobile()"></i>
+								<i
+								ng-if="vm.prepareEdit && vm.onMobileCheck && !vm.onMobileEdit && vm.customerBasicInfo.mobile"
+								class="iconfont icon-icon_yulan"
+								ng-click="vm.checkMobile()"></i>
+								<i
+								ng-if="vm.prepareEdit && !vm.onMobileCheck && !vm.onMobileEdit && vm.customerBasicInfo.mobile"
+								class="iconfont icon-miwen"
+								ng-click="vm.checkMobile()"></i>
+							</span>
+							<i ng-if="vm.onMobileEdit"
+							class="iconfont icon-finish"
+							ng-click="vm.handleMobileSave()"></i>
+							<i
+							ng-if="vm.onMobileEdit"
+							class="iconfont icon-close"
+							ng-click="vm.cancelModileSave()"></i>
+						</div>
+					</li>
+					<li class="customer-attr-info-block-detail-style">
+					邮箱：
+						<cc-loading ng-if="vm.emailLoading"></cc-loading>
+						<div ng-if="!vm.emailLoading" class="normal-attr-info-style">
+							<div ng-if="!vm.onEmailEdit">{{vm.customerBasicInfo.email ? vm.customerBasicInfo.email : "--"}}</div>
+							<input
+							class="customer-attr-info-block-input-style"
+							ng-if="vm.onEmailEdit"
+							ng-model="vm.customerBasicInfo.email"
+							ng-keyup="vm.handleEmailEdit($event)"/>
+							<span>
+								<i
+								ng-if="vm.prepareEdit && !vm.onEmailEdit"
+								class="iconfont icon-edit1"
+								ng-click="vm.editEmail()"></i>
+								<i
+								ng-if="vm.prepareEdit && vm.onEmailCheck && !vm.onEmailEdit && vm.customerBasicInfo.email"
+								class="iconfont icon-icon_yulan"
+								ng-click="vm.checkEmail()"></i>
+								<i
+								ng-if="vm.prepareEdit && !vm.onEmailCheck && !vm.onEmailEdit && vm.customerBasicInfo.email"
+								class="iconfont icon-miwen"
+								ng-click="vm.checkEmail()"></i>
+							</span>
+							<i
+							ng-if="vm.onEmailEdit"
+							class="iconfont icon-finish"
+							ng-click="vm.handleEmailSave()"></i>
+							<i
+							ng-if="vm.onEmailEdit"
+							class="iconfont icon-close"
+							ng-click="vm.cancelEmailSave()"></i>
+						</div>
+					</li>
+					<li class="address-style">地址：
+						<cc-loading ng-if="vm.addressLoading"></cc-loading>
+						<div ng-if="!vm.addressLoading" class="normal-attr-info-style">
+							<div
+							cc-tooltip="vm.isAddressOverWidth ? vm.customerBasicInfo.address : ''"
+							ng-if="!vm.onAddressEdit"
+							class="customer-attr-area-style">
+								{{vm.customerBasicInfo.address}}
+							</div>
+							<cv-area-select
+								ng-if="vm.onAddressEdit"
+								selected-area="vm.selectedArea"
+								on-save-done="vm.handleAddressSave(area)"
+								on-cancel-done="vm.cancelAddressSave()"
+							>
+							</cv-area-select>
+							<i
+							ng-if="vm.prepareEdit && !vm.onAddressEdit"
+							class="iconfont icon-edit1"
+							ng-click="vm.editStateAndCity()"
+							></i>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="consumption-info-block-style">
+			<ul class="consumption-info-first-col-style">
+				<li ng-repeat="item in vm.customerMarketingInfoFirstCol track by $index">
+					{{item.title}}：
+					<div
+					class="customer-purchers-list-style"
+					ng-if="item.type === 'platList'"
+					cc-tooltip="item.overWidth ? item.value : ''"
+					tooltip-placement="top-left">
+						{{item.value || '--'}}
+					</div>
+					<div
+					class="customer-purchers-list-style"
+					ng-if="item.type === 'shopList'"
+					cc-tooltip="item.overWidth ? item.value : ''"
+					tooltip-placement="top-left">
+						{{item.value || '--'}}
+					</div>
+					<span ng-if="item.type === 'money'">
+						{{item.value ? '￥' : ''}}{{item.value || '--'}}
+					</span>
+				</li>
+			</ul>
+			<ul class="consumption-info-second-col-style">
+				<li ng-repeat="item in vm.customerMarketingInfoSecondCol track by $index">
+					{{item.title}}：{{item.type === 'money' && item.value ? '￥' : ''}}{{item.value || '--'}}{{item.value ? item.unit : ''}}
+				</li>
+			</ul>
+			<ul class="consumption-info-third-col-style">
+				<li ng-repeat="item in vm.customerMarketingInfoThirdCol track by $index">
+					{{item.title}}：{{item.type === 'money' && item.value ? '￥' : ''}}{{item.value || '--'}}{{item.value ? item.unit : ''}}
+				</li>
+			</ul>
+		</div>
+    </div>
+	<div class="tab-set">
+		<ul>
+			<li class="tab" ng-class='{active:vm.index === $index}' ng-click="vm.changeTab($index)" ng-repeat="tab in vm.tabTitle">{{tab.name}}</li>
+		</ul>
+	</div>
+	<div>
+		<!--客户标签-->
+		<customer-label uni-id="vm._uniId" ng-if="vm.index === 0"></customer-label>
+
+		<!--会员卡信息-->
+		<customer-card uni-id="vm._uniId" ng-if="vm.index === 1"></customer-card>
+
+		<!--订单信息-->
+		<order uni-id="vm._uniId" selected-plat-list="vm.selectedPlatList" ng-if="vm.index === 2"></order>
+
+		<!--营销信息-->
+		<marketing uni-id="vm._uniId" ng-if="vm.index === 3"></marketing>
+
+		<!--互动信息-->
+		<interactive uni-id="vm._uniId" ng-if="vm.index === 4"></interactive>
+
+		<!--评价信息-->
+		<evaluation uni-id="vm._uniId" selected-plat-list="vm.selectedPlatList" ng-if="vm.index === 5"></evaluation>
+
+		<!--权益信息-->
+		<preferential uni-id="vm._uniId" ng-if="vm.index === 6"></preferential>
+
+		<!--收货地址信息-->
+		<receive-address uni-id="vm._uniId" ng-if="vm.index === 7"></receive-address>
+	</div>
+</div>

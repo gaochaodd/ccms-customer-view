@@ -1,0 +1,281 @@
+.customer-view-modal-loading-style{
+	height: 230px;
+	position: relative;
+	left: 45%;
+}
+.customer-view-modal-style {
+	display: flex;
+	height: 100%;
+	flex-direction: column;
+	.date-picker .date-picker-clear{
+		display: none;
+	}
+	.customer-info-title-style {
+		div {
+			width: 100px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+	}
+	.customer-view-basic-info-style {
+		display: flex;
+		width: 1070px;
+	}
+	.customer-avatar-style {
+		border-radius: 4px;
+		margin: 26px 20px 26px 0;
+		border: 1px solid #E4E4E4;
+		height: 80px;
+		width: 80px;
+		overflow: hidden;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.customer-info-block-style {
+		width: 970px;
+		height: 68px;
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		flex-wrap: wrap;
+		li {
+			display: flex;
+			width: 20%;
+		}
+		.customer-info-copyable-style {
+			cursor: pointer;
+		}
+	}
+	.customer-attr-info-block-style {
+		width: 970px;
+		height: 68px;
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		flex-wrap: wrap;
+		border-top: 1px dashed #DADADA;
+		.customer-attr-info-block-detail-style {
+			display: flex;
+			width: 20%;
+			align-items: center;
+			height: 26px;
+			.customer-attr-info-block-input-style {
+				height: 26px;
+				width: 100px;
+			}
+			i {
+				margin-left: 10px;
+				font-size: 11px;
+				cursor: pointer;
+			}
+			i:hover {
+				color: #0083BA;
+			}
+		}
+		.address-style {
+			display: flex;
+			align-items: center;
+			height: 26px;
+			max-width: 80%;
+			.customer-attr-area-style{
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				max-width: 666px;
+			}
+		}
+	}
+	.customer-attr-info-block-style:hover {
+		background: rgba(238, 248, 252, 1);
+	}
+	.consumption-info-block-style {
+		width: 1070px;
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: center;
+		flex-wrap: wrap;
+		border-top: 1px dashed #DADADA;
+		padding: 6px 0 12px 0;
+		.consumption-info-first-col-style {
+			height: 100%;
+			width: 33.3%;
+			li {
+				display: flex;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				padding: 6px 20px 6px 0;
+			}
+			.customer-purchers-list-style{
+				max-width: 240px;
+				word-wrap: break-word;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+		}
+		.consumption-info-second-col-style {
+			height: 100%;
+			width: 33.3%;
+			li {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				padding: 6px 0;
+			}
+		}
+		.consumption-info-third-col-style {
+			height: 100%;
+			width: 33.3%;
+			li {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				padding: 6px 0;
+			}
+		}
+	}
+
+	.tab-set {
+		margin-bottom: 12px;
+		width: 1070px;
+		ul {
+			border-bottom: 1px solid #32B5E5;
+		}
+		.tab {
+			text-align: center;
+			cursor: pointer;
+			line-height: 28px;
+			padding: 0 20px;
+			margin-right: 5px;
+			display: inline-block;
+			border: 1px solid #d9d9d9;
+			border-bottom: none;
+			border-bottom-color: #33b5e5;
+			background-color: #f4f4f4;
+			color: #0083ba;
+			font-size: 12px;
+		}
+		.active {
+			border-color: #33b5e5;
+			border-bottom-color: #fcfcfc;
+			background-color: #f8f8f8;
+			color: #3a3a3a;
+			line-height: 30px;
+			cursor: default;
+			margin-bottom: -1px;
+			z-index: 6;
+			label {
+				cursor: default;
+			}
+		}
+	}
+}
+
+.customer-view-modal-style{
+    display: flex;
+	height: 500px;
+	min-height: 500px;
+	flex-direction: column;
+	color: #3d3d3d;
+	.iconfont{
+		color: fade(#000000, 45%);
+	}
+	.icon-finish{
+		display: flex;
+		align-items: center;
+		color: #52C41A;
+	}
+	.icon-close{
+		display: flex;
+		align-items: center;
+	}
+    .customer-view-basic-info-style{
+        display: flex;
+        width: 1070px;
+    }
+    .customer-avatar-style{
+        border-radius:4px;
+        margin: 26px 20px 26px 0;
+        padding: 1px;
+        border: 1px solid #E4E4E4;
+        height: 80px;
+        width: 80px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .customer-info-block-style{
+        width: 970px;
+        height: 68px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-wrap: wrap;
+        li{
+            width: 20%;
+        }
+        .customer-info-copyable-style{
+            cursor: pointer;
+        }
+    }
+    .customer-attr-info-block-style{
+        width: 970px;
+        height: 68px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-wrap: wrap;
+        border-top: 1px dashed #DADADA;
+        cc-loading section .loader .circular{
+            height: 40%;
+        }
+        .customer-attr-info-block-input-style{
+                height: 26px;
+                width: 130px;
+                .date-picker {
+                    line-height: 26px;
+                }
+                .date-picker .date-picker-input{
+                    height: 26px;
+                }
+            }
+        .customer-attr-info-block-detail-style{
+            display: flex;
+            width: 20%;
+            align-items: center;
+            height: 26px;
+            .normal-attr-info-style{
+                display: flex;
+            }
+            i{
+                margin-left: 10px;
+                font-size: 11px;
+                cursor: pointer;
+            }
+            i:hover{
+                color: #0083BA;
+            }
+        }
+        .address-style{
+            display: flex;
+            align-items: center;
+            height: 26px;
+			max-width: 80%;
+			.normal-attr-info-style{
+                display: flex;
+            }
+            i{
+                margin-left: 10px;
+                font-size: 11px;
+                cursor: pointer;
+            }
+            i:hover{
+                color: #0083BA;
+            }
+        }
+    }
+    .customer-attr-info-block-style:hover{
+        background:rgba(238,248,252,1);
+    }
+}

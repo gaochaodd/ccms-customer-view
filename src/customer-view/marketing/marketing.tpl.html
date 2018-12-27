@@ -1,0 +1,20 @@
+<div class="marketing-container">
+	<div class="marketing-title">
+		<span class="marketing-count">
+			<label>90天内营销次数：</label>
+			<span ng-if="vm.marketingCount">{{vm.marketingCount}}次</span>
+			<span ng-if="!vm.marketingCount" class="empty">--</span>
+		</span>
+		<span class="marketing-last-time">
+			<label>最后一次营销时间：</label>
+			<span ng-if="vm.lastMarketingTime">{{vm.lastMarketingTime}}</span>
+			<span ng-if="!vm.lastMarketingTime" class="empty">--</span>
+		</span>
+	</div>
+	<div class="marketing-grid-wrap">
+		<grid-manager option="vm.marketingOptions"></grid-manager>
+		<div class="tips-label">
+			列表显示90天内营销记录
+		</div>
+	</div>
+</div>

@@ -1,0 +1,20 @@
+<div class="interactive-container">
+	<div class="interactive-title">
+		<span class="interactive-count">
+			<label>90天内互动次数：</label>
+			<span ng-if="vm.interactiveCount">{{vm.interactiveCount}}次</span>
+			<span ng-if="!vm.interactiveCount" class="empty">--</span>
+		</span>
+		<span class="interactive-last-time">
+			<label>最后一次互动时间：</label>
+			<span ng-if="vm.lastInteractionTime">{{vm.lastInteractionTime}}</span>
+			<span ng-if="!vm.lastInteractionTime" class="empty">--</span>
+		</span>
+	</div>
+	<div class="interactive-grid-wrap">
+		<grid-manager option="vm.interactiveOptions"></grid-manager>
+		<div class="tips-label">
+			列表显示90天内互动记录
+		</div>
+	</div>
+</div>

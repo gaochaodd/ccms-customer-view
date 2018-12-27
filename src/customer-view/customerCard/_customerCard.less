@@ -1,0 +1,206 @@
+/**
+ * _customerCard.less
+ * @author wangbo
+ * @since 2018/11/10
+ */
+
+.customer-card-container {
+	width: 1070px;
+	.loading-area {
+		margin-left: 45%;
+	}
+	.customer-card-info {
+		text-align: center;
+		margin: 0 auto;
+		> li {
+			> div {
+				display: inline-block;
+				vertical-align: middle;
+			}
+		}
+		.card-area {
+			width: 360px;
+			margin-right: 100px;
+			display: inline-block;
+			> div {
+				display: inline-block;
+			}
+			.showChangeBtn {
+				visibility: visible;
+			}
+			.hideChangeBtn {
+				visibility: hidden;
+			}
+
+			.fromLeft {
+				animation:fromLeft 1s;
+			}
+			.fromRight {
+				animation:fromRight 1s;
+			}
+			.vip1 {
+				background: url("../assets/img/1.png") no-repeat;
+			}
+			.vip2 {
+				background: url("../assets/img/2.png") no-repeat;
+			}
+			.vip3 {
+				background: url("../assets/img/3.png") no-repeat;
+			}
+			.vip4 {
+				background: url("../assets/img/4.png") no-repeat;
+			}
+			.vip5 {
+				background: url("../assets/img/5.png") no-repeat;
+			}
+			.vip6 {
+				background: url("../assets/img/6.png") no-repeat;
+			}
+			.vip7 {
+				background: url("../assets/img/7.png") no-repeat;
+			}
+			@keyframes fromRight
+			{
+				0%   {left:100px;opacity: 0}
+				100% {left: 0;opacity: 1}
+			}
+			@keyframes fromLeft
+			{
+				0%   {left:-100px;opacity: 0}
+				100% {left: 0;opacity: 1}
+			}
+			.card {
+				width: 270px;
+				height: 154px;
+				background-position: center;
+				position: relative;
+				vertical-align: middle;
+				margin: 0 14px;
+				header {
+					position: absolute;
+					left: 20px;
+					top: 20px;
+					.card-name {
+						font-size: 18px;
+						color: #ffffff;
+						color:rgba(255,255,255,1);
+						line-height:22px;
+					}
+				}
+				footer {
+					position: absolute;
+					bottom: 4px;
+					width: 100%;
+					.card-number {
+						color: #FFFFFF;
+						position: absolute;
+						left: 20px;
+					}
+					.card-grade {
+						color: #320005;
+						padding: 7px;
+						border-radius:4px 0 4px 0;
+						opacity:0.95;
+						float: right;
+						background: #FFFFFF;
+
+					}
+				}
+			}
+			.chang-card {
+				color: #CCCCCC;
+				cursor: pointer;
+			}
+			.card-page {
+				cursor: default;
+				font-size:16px;
+				color: #666666;
+				margin-top: 30px;
+			}
+		}
+		.info {
+			display: inline-block;
+			.info-area {
+				margin: 0;
+				color: #3D3D3D;
+				dt,
+				dd {
+					display: inline-block;
+					vertical-align: top;
+					height: 28px;
+					line-height: 28px;
+					font-size: 12px;
+					color: #4c4c4c;
+				}
+				dt {
+					text-align: right;
+					width: 90px;
+				}
+				dd {
+					text-align: left;
+					margin-left: 0;
+					width: 120px;
+				}
+			}
+		}
+		.empty-area {
+			position: relative;
+			top: 6em;
+			.warning {
+				font-size: 40px;
+				color: #dddddd;
+			}
+			.warning-label {
+				line-height: 45px;
+				vertical-align: top;
+				font-size: 14px;
+				margin-left: 20px;
+				color: #999999;
+			}
+		}
+	}
+	.grid-container {
+		.grid-container-title {
+			margin: 10px 0;
+			text-align: center;
+			line-height: 26px;
+			> span {
+				width:114px;
+				height:32px;
+				font-size:14px;
+				font-weight:400;
+				color:rgba(255,255,255,1);
+				line-height:22px;
+				padding: 5px 15px;
+				cursor: pointer;
+			}
+			.grade {
+				//	等级按钮
+				background: #00AAF1;
+				border: 1px solid #00AAF1;
+			}
+			.integral {
+				// 积分按钮
+				background: #FFFFFF;
+				color: #666666;
+				border: 1px solid #D9D9D9;
+			}
+			.select-grade {
+				border-radius: 4px 0 0 4px;
+				border-right: none;
+			}
+			.select-point {
+				border-radius: 0 4px 4px 0;
+				border-left: none;
+			}
+		}
+		.customer-card-grid-wrap {
+			width: 1070px;
+			height: calc(100vh - 400px);
+			margin-bottom: 20px;
+			.change-value {
+				padding-right: 100px;
+			}
+		}
+	}
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ccms">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../node_modules/ccms-components/ccms-components.css">
+    <link rel="stylesheet" href="../node_modules/ccms-icons/iconfont.css">
+    <link rel="stylesheet" href="../node_modules/gridmanager-angular-1.x/css/gm-angular.css">
+    <link rel="stylesheet" href="./style.css">
+    <title ng-bind="title"></title>
+</head>
+<body>
+<header>
+    <h1>test customer view</h1>
+</header>
+<main ng-controller="testCustomerView">
+    <customer-view class="open-customer-view" uni-id="uniId" env-name="envName"></customer-view>
+    <hr>
+    <cc-checkbox ng-model="uniId"> 测试一下</cc-checkbox>
+</main>
+
+<script src="../node_modules/angular/angular.js"></script>
+<script src="../node_modules/angular-resource/angular-resource.js"></script>
+<script src="../node_modules/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="../node_modules/ccms-components/ccms-components.js"></script>
+<script src="../node_modules/gridmanager-angular-1.x/js/gm-angular.js"></script>
+<script src="../node_modules/gridmanager-ccms-skin/js/index.js"></script>
+<script src="../index.js"></script>
+<script src="./app.js"></script>
+
+</body>
+</html>

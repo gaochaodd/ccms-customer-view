@@ -1,0 +1,114 @@
+.order-section-style{
+	margin-bottom: 20px;
+	height: calc(100vh - 400px);
+	.order-grid-style{
+		.table-wrap{
+			background-color: #F8F8F8;
+		}
+		.table-wrap .table-div table[grid-manager] thead tr {
+			border: 1px solid #EEEEEE;
+		}
+		.table-wrap .table-div {
+			height: calc(100% - 50px) !important;
+			overflow-x: hidden !important;
+		}
+		.table-wrap .table-div table[grid-manager] tbody tr td {
+			padding: 0;
+			border: 0;
+			height: 0;
+			background-color: #F8F8F8;
+		}
+		.table-wrap.ccms-skin .footer-toolbar{
+			margin-top: 5px;
+			border-color: #EEEEEE;
+		}
+	}
+}
+
+.order-container-style {
+	max-height: 700px;
+	.dropdown-list {
+		// 修改组件库中的下拉列表z-index，否则会被表格组件表头遮住
+		z-index: 9999 !important;
+	}
+	.order-params-style{
+		padding-bottom: 12px;
+	}
+	.order-plat-shop-select-style{
+		width: 251px;
+		margin-right: 20px;
+	}
+	.main-order-info-style{
+		padding: 12px 26px 12px 14px;
+		display:flex;
+		justify-content:space-between;
+		border-top: none;
+		background-color: #F1F1F1;
+	}
+	.sub-order-info-stlye{
+		display:flex;
+		flex-direction: column;
+	}
+	.product-detail-info-style{
+		padding: 10px 14px;
+		border-left: 1px solid #EEEEEE;
+		border-bottom: 1px solid #EEEEEE;
+		display: flex;
+	}
+	.product-name-sku-refund-style{
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		margin-left: 10px;
+		height: 56px;
+		width: 100%;
+	}
+	.product-name-style{
+		color: #145681;
+		white-space: normal;
+		word-break: break-all;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2;
+		overflow: hidden;
+	}
+	.product-sku-refund-style{
+		display:flex;
+		justify-content: space-between;
+		color: #999999
+	}
+	.product-refund-style{
+		color: #FF8D1A
+	}
+	.product-price-style{
+		height: 79px;
+		padding-left: 6px;
+		border-bottom: 1px solid #EEEEEE;
+		display: flex;
+		align-items: center;
+	}
+	.product-num-style{
+		height: 79px;
+		padding-left: 6px;
+		border-bottom: 1px solid #EEEEEE;
+		border-right: 1px solid #EEEEEE;
+		display: flex;
+		align-items: center;
+	}
+	.sub-order-tradeDiscountFee-stlye{
+		border-right:1px solid #EEEEEE;
+		border-bottom:1px solid #EEEEEE;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.sub-order-payment-stlye{
+		border-bottom:1px solid #EEEEEE;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+		padding-left: 30%;
+	}
+}

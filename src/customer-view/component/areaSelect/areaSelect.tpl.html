@@ -1,0 +1,42 @@
+<cc-loading ng-if="vm.loading"></cc-loading>
+<div ng-if="!vm.loading" class="area-select-style">
+	<cc-dropdown-select
+		model="vm.state"
+		datalist="vm.areaList"
+		mapping="vm.fieldMap"
+		on-select-change="vm.onProvenceChange(newValue, oldValue, itemIndex)"
+	>
+	</cc-dropdown-select>
+	<cc-dropdown-select
+		disabled="!vm.state"
+		model="vm.city"
+		datalist="vm.cityList"
+		mapping="vm.fieldMap"
+		on-select-change="vm.onCityChange(newValue, oldValue, itemIndex)"
+	>
+	</cc-dropdown-select>
+	<cc-dropdown-select
+		disabled="!vm.city"
+		model="vm.district"
+		datalist="vm.districtList"
+		mapping="vm.fieldMap"
+		on-select-change="vm.onDistrictChange(newValue, oldValue, itemIndex)"
+	>
+	</cc-dropdown-select>
+	<cc-dropdown-select
+		ng-if="vm.townList"
+		disabled="!vm.district"
+		model="vm.town"
+		datalist="vm.townList"
+		mapping="vm.fieldMap"
+		on-select-change="vm.onTownChange()"
+	>
+	</cc-dropdown-select>
+	<input
+		class="detail-address-style"
+		ng-model="vm.detailAddress"
+		ng-keyup="vm.handleDetailAddressEdit($event)"
+	/>
+	<i class="iconfont icon-finish" ng-click="vm.handleSaveArea()"></i>
+	<i class="iconfont icon-close" ng-click="vm.handleCancelArea()"></i>
+</div>

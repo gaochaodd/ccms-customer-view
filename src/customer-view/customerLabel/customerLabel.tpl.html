@@ -1,0 +1,136 @@
+<div class="customer-label-container">
+	<cc-loading class="loading-area" ng-if="vm.showLoading"></cc-loading>
+	<div class="customer-label-title" ng-if="false">
+		<div class="cloud-tag-area">
+			<ul>
+				<span>云标签：</span>
+				<li class="cloud-tag" ng-repeat="tag in vm.cloudTag">{{tag.tagName}}:{{tag.tagValue}}</li>
+			</ul>
+		</div>
+		<div class="define-tag-area">
+			<ul>
+				<span>自定义标签：</span>
+				<!--todo 待添加链接-->
+				<!--todo 如果客户有自定义标签，但是当前客户没有被打上任何标签，自定义标签区域不显示-->
+				<a class="no-define-tag" href="" ng-if="!vm.defineTag">您还没有创建任何标签，马上创建吧！(链接到客户标签管理-自定义标签页)</a>
+				<li ng-mouseenter="vm.editLabel('show', $index)" ng-mouseleave="vm.editLabel('hide', $index)" class="define-tag" ng-repeat="tag in vm.defineTag">
+					<span>{{tag.tagName}}:{{tag.tagValue}}<i ng-if="vm.prepareEdit === $index" class="iconfont icon-edit" ng-click="vm.openDefineTagModal('edit', tag)"></i></span>
+				</li>
+				<li class="add-tag" ng-click="vm.openDefineTagModal('add', null)"><i class="iconfont icon-add"></i>新增标签</li>
+			</ul>
+		</div>
+	</div>
+	<div class="customer-label-main">
+		<ul>
+			<li ng-repeat="item in vm.rfmList">
+				<div class="shop-area">
+					<span class="shop-icon">
+						<svg style="fill: currentColor;width: 14px;height: 14px"
+							 aria-hidden="true">
+                      		<use xlink:href="{{vm.getPlatInfo(item.platCode)[1]}}"></use>
+                		</svg>
+						<span class="shop-type" ng-bind="vm.getPlatInfo(item.platCode)[0]"></span>
+					</span>
+					<span class="choose-shop-label">选择店铺：</span>
+					<ul class="shop-list" ng-if="item.platCode !== 'OFFLINE'">
+						<li ng-class="{shopsActive: vm.selected === $index && vm.parentSelected === $parent.$index}"
+							ng-repeat="shop in item.shopList"
+							ng-click="vm.changeShop(item.platCode, shop.shopId, $index, $parent.$index)">{{shop.shopName}}</li>
+					</ul>
+					<cc-dropdown-select
+						ng-if="item.platCode === 'OFFLINE'"
+						model="vm.shop"
+						searchable="true"
+						datalist="item.shopList"
+						mapping="{
+							valueField: 'shopId',
+							displayField: 'shopName'
+						}"
+						placeholder="不限"
+						on-select-change="vm.changeShop('OFFLINE', vm.shop, $index, $parent.$index)">
+					</cc-dropdown-select>
+				</div>
+				<div class="label-list-area">
+					<dl>
+						<dt>总购买金额：</dt>
+						<dd>{{item.allPayment ? '￥' + item.allPayment : '--'}}</dd>
+					</dl>
+					<dl>
+						<dt>最近一次购买金额：</dt>
+						<dd>{{item.lastPayment ? '￥' + item.lastPayment : '--' }}</dd>
+					</dl>
+					<dl>
+						<dt>首次购买时间：</dt>
+						<dd>{{item.firstCreated ? item.firstCreated : '--'}}</dd>
+					</dl>
+					<dl>
+						<dt>总购买次数：</dt>
+						<dd>{{item.allCountBuy ? item.allCountBuy + '次' : '--'}}</dd>
+					</dl>
+					<dl>
+						<dt>最近一年购买次数：</dt>
+						<dd>{{item.yearCountBuy ? item.yearCountBuy + '次' : '--'}}</dd>
+					</dl>
+					<dl>
+						<dt>最近一次购买时间：</dt>
+						<dd>{{item.lastCreated ? item.lastCreated : '--'}}</dd>
+					</dl>
+					<dl>
+						<dt>平均客单价：</dt>
+						<dd>{{item.allAvgPayment ? '￥' + item.allAvgPayment : '--'}}</dd>
+					</dl>
+					<dl>
+						<dt>最近一年平均客单价：</dt>
+						<dd>{{item.yearAvgPayment ? '￥' + item.yearAvgPayment : '--'}}</dd>
+					</dl>
+					<dl>
+						<dt>最近一年购买金额：</dt>
+						<dd>{{item.yearPayment ? '￥' + item.yearPayment : '--'}}</dd>
+					</dl>
+				</div>
+			</li>
+		</ul>
+		<ul>
+			<li ng-if="!vm.rfmList.length && !vm.showLoading">
+				<div class="label-list-area">
+					<dl>
+						<dt>总购买金额：</dt>
+						<dd>--</dd>
+					</dl>
+					<dl>
+						<dt>最近一次购买金额：</dt>
+						<dd>--</dd>
+					</dl>
+					<dl>
+						<dt>首次购买时间：</dt>
+						<dd>--</dd>
+					</dl>
+					<dl>
+						<dt>总购买次数：</dt>
+						<dd>--</dd>
+					</dl>
+					<dl>
+						<dt>最近一年购买次数：</dt>
+						<dd>--</dd>
+					</dl>
+					<dl>
+						<dt>最近一次购买时间：</dt>
+						<dd>--</dd>
+					</dl>
+					<dl>
+						<dt>平均客单价：</dt>
+						<dd>--</dd>
+					</dl>
+					<dl>
+						<dt>最近一年平均客单价：</dt>
+						<dd>--</dd>
+					</dl>
+					<dl>
+						<dt>最近一年购买金额：</dt>
+						<dd>--</dd>
+					</dl>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>

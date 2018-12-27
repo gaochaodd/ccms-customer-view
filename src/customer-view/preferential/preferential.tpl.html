@@ -1,0 +1,20 @@
+<div class="preferential-container">
+	<div class="preferential-title">
+		<span class="preferential-count">
+			<label>90天权益发放量：</label>
+			<span ng-if="vm.preferentialCount">{{vm.preferentialCount}}个</span>
+			<span ng-if="!vm.preferentialCount" class="empty">--</span>
+		</span>
+			<span class="preferential-last-time">
+			<label>最后一次权益发放时间：</label>
+			<span ng-if="vm.lastPreferentialTime">{{vm.lastPreferentialTime}}</span>
+			<span ng-if="!vm.lastPreferentialTime" class="empty">--</span>
+		</span>
+	</div>
+	<div class="preferential-grid-wrap">
+		<grid-manager option="vm.preferentialOptions"></grid-manager>
+		<div class="tips-label">
+			列表显示90天内权益发放记录
+		</div>
+	</div>
+</div>

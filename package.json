@@ -1,0 +1,62 @@
+{
+    "name": "ccms-customer-view",
+    "version": "0.0.6",
+    "description": "ccms-customer-view",
+    "main": "index.js",
+    "scripts": {
+        "start": "npm run mock & node ./server.js",
+        "build": "webpack --config webpack-build.config.js && cp package.json ./dist/package.json && cp README.md ./dist/README.md",
+        "mock": "fe-mock-server --mock ./mock/conf --port 3334"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ShuyunFF2E/ccms-customer-view.git"
+    },
+    "author": "baukh",
+    "license": "MIT",
+    "homepage": "https://github.com/ShuyunFF2E/ccms-customer-view#readme",
+    "bugs": {
+        "url": "https://github.com/ShuyunFF2E/ccms-customer-view/issues"
+    },
+    "devDependencies": {
+        "babel-core": "^6.25.0",
+        "babel-eslint": "^6.0.4",
+        "babel-loader": "^6.4.1",
+        "babel-plugin-transform-class-properties": "^6.24.1",
+        "babel-plugin-transform-decorators-legacy": "^1.3.4",
+        "babel-plugin-transform-function-bind": "^6.22.0",
+        "babel-plugin-transform-object-rest-spread": "^6.23.0",
+        "babel-preset-env": "^1.5.2",
+        "babel-register": "^6.7.2",
+        "clean-webpack-plugin": "^0.1.8",
+        "copy-webpack-plugin": "^4.5.0",
+        "css-loader": "^0.28.10",
+        "express": "^4.16.3",
+        "fe-mock-server": "^0.1.0",
+        "file-loader": "^0.8.5",
+        "html-loader": "^0.4.3",
+        "url-loader": "^1.1.2",
+        "json-mock-kuitos": "^1.2.0",
+        "less": "^3.9.0",
+        "less-loader": "^4.1.0",
+        "style-loader": "^0.20.3",
+        "json-loader": "^0.5.4",
+        "webpack": "^2.6.1",
+        "webpack-dev-middleware": "^2.0.4",
+        "webpack-hot-middleware": "^2.24.3",
+        "webpack-merge": "^4.1.5"
+    },
+    "dependencies": {
+        "angular": "1.5.8",
+        "angular-es-utils": "^2.1.2",
+        "angular-resource": "1.5.8",
+        "angular-sanitize": "1.5.8",
+        "angular-ui-router": "0.2.18",
+        "angular-utils": "^0.2.4",
+        "ccms-components": "2.37.6-0",
+        "ccms-icons": "0.0.8",
+        "gridmanager-angular-1.x": "^0.1.0",
+        "gridmanager-ccms-skin": "^0.0.23",
+        "moment": "^2.22.2"
+    }
+}

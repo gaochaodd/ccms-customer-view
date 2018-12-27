@@ -1,0 +1,31 @@
+<div class="evaluation-container">
+	<div class="evaluation-params-style">
+		<label for="plat">
+			平台：
+		</label>
+		<cc-dropdown-select
+			class="evaluation-plat-shop-select-style"
+			id="plat"
+			model="vm.currentPlat"
+			mapping="vm.platListFieldMap"
+			datalist="vm.allPlat"
+			on-select-change="vm.onPlatChange()">
+		</cc-dropdown-select>
+		<label for="shop">
+			店铺：
+		</label>
+		<cc-dropdown-select
+			ng-disabled="!vm.onShoplistLoading"
+			class="evaluation-plat-shop-select-style"
+			id="shop"
+			model="vm.currentShop"
+			datalist="vm.shopList"
+			mapping="vm.shopListFieldMap"
+			on-select-change="vm.onShopChange()">
+		</cc-dropdown-select>
+		<!-- todo 察看一年前的订单-->
+	</div>
+	<div class="evaluation-grid-wrap">
+		<grid-manager class="evaluation-grid-style" option="vm.evaluationOptions"></grid-manager>
+	</div>
+</div>

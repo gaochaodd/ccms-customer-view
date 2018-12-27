@@ -1,0 +1,33 @@
+<div class="order-container-style">
+	<div class="order-params-style">
+		<label for="plat">
+			平台：
+		</label>
+		<cc-dropdown-select
+			class="order-plat-shop-select-style"
+			id="plat"
+			model="vm.currentPlat"
+			mapping="vm.platListFieldMap"
+			datalist="vm.allPlat"
+			on-select-change="vm.onPlatChange()">
+		</cc-dropdown-select>
+		<label for="shop">
+			店铺：
+		</label>
+		<cc-dropdown-select
+			ng-disabled="!vm.onShoplistLoading"
+			class="order-plat-shop-select-style"
+			id="shop"
+			model="vm.currentShop"
+			datalist="vm.shopList"
+			mapping="vm.shopListFieldMap"
+			on-select-change="vm.onShopChange()">
+		</cc-dropdown-select>
+		<!-- todo 察看一年前的订单-->
+	</div>
+	<!-- 列表区域：开始 -->
+	<section class="order-section-style">
+		<grid-manager option="vm.gmOptions" class="order-grid-style"></grid-manager>
+	</section>
+	<!-- 列表区域：结束 -->
+</div>

@@ -1,0 +1,81 @@
+<div class="customer-card-container">
+	<cc-loading class="loading-area" ng-if="vm.showLoading"></cc-loading>
+	<ul class="customer-card-info" ng-show="vm.customerCardInfo.length && !vm.showLoading">
+		<li ng-repeat="item in vm.customerCardInfo track by $index" ng-show="vm.isShowIndex === $index">
+			<div class="card-area">
+				<div class="chang-card"
+					 ng-class="{showChangeBtn: vm.customerCardInfo.length !== 1, hideChangeBtn: vm.customerCardInfo.length === 1}"
+					 ng-click="vm.changeCard('left', $index)">
+					<i class="iconfont icon-jiantouzuo"></i>
+				</div>
+				<div class="card" ng-class="{fromLeft: vm.cardFromLeft, fromRight: !vm.cardFromLeft, vip1: item.grade === '1', vip2: item.grade === '2', vip3: item.grade === '3', vip4: item.grade === '4', vip5: item.grade === '5', vip6: item.grade === '6', vip7: item.grade === '7'}">
+					<header>
+						<span class="card-name">{{item.cardName}}</span>
+					</header>
+					<footer>
+						<span class="card-number" ng-bind="item.cardNumber"></span>
+
+						<span class="card-grade" ng-bind="item.gradeName"></span>
+					</footer>
+				</div>
+				<div class="chang-card"
+					 ng-class="{showChangeBtn: vm.customerCardInfo.length !== 1, hideChangeBtn: vm.customerCardInfo.length === 1}"
+					 ng-click="vm.changeCard('right', $index)">
+					<i class="iconfont icon-jiantouyou"></i>
+				</div>
+				<div class="card-page">
+					<span ng-bind="$index + 1"></span>
+					<span>/</span>
+					<span ng-bind="vm.customerCardInfo.length"></span>
+				</div>
+			</div>
+			<div class="info" ng-show="vm.customerCardInfo.length">
+				<dl class="info-area">
+					<dt>等级：</dt>
+					<dd ng-bind="item.grade"></dd>
+				</dl>
+				<dl class="info-area">
+					<dt>等级有效期：</dt>
+					<dd ng-bind="vm.formatDate(item.gradePeriod)"></dd>
+				</dl>
+				<dl class="info-area">
+					<dt>可用积分：</dt>
+					<dd ng-bind="item.availablePoint"></dd>
+				</dl>
+				<dl class="info-area">
+					<dt>即将过期积分：</dt>
+					<dd ng-bind="item.upcomingExpiredPoint"></dd>
+				</dl>
+				<dl class="info-area">
+					<dt>累积获得积分：</dt>
+					<dd ng-bind="item.totalPoint"></dd>
+				</dl>
+				<dl class="info-area">
+					<dt>已消耗积分：</dt>
+					<dd ng-bind="item.consumedPoint"></dd>
+				</dl>
+				<dl class="info-area">
+					<dt>已过期积分：</dt>
+					<dd ng-bind="item.expiredPoint"></dd>
+				</dl>
+			</div>
+		</li>
+	</ul>
+
+	<div class="grid-container" ng-show="vm.customerCardInfo.length && !vm.showLoading">
+		<div class="grid-container-title">
+			<span class="select-grade" ng-class="{grade: !vm.selectedGrade, integral: vm.selectedGrade}" ng-click="vm.viewChangeRecord('point')">积分变更记录</span><span class="select-point" ng-class="{grade: vm.selectedGrade, integral: !vm.selectedGrade}" ng-click="vm.viewChangeRecord('grade')">等级变更记录 </span>
+		</div>
+		<div class="customer-card-grid-wrap">
+			<grid-manager ng-show="vm.selectedGrade" option="vm.customerGradeOptions"></grid-manager>
+			<grid-manager ng-show="!vm.selectedGrade" option="vm.customerPointOptions"></grid-manager>
+		</div>
+	</div>
+
+	<div class="customer-card-info" ng-if="!vm.customerCardInfo.length && !vm.showLoading">
+		<div class="empty-area">
+			<span class="iconfont icon-caution warning"></span>
+			<span class="warning-label">当前客户未领取任何会员卡</span>
+		</div>
+	</div>
+</div>
