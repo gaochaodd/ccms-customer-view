@@ -16,8 +16,7 @@ const production = () => ({
 	},
 	output: {
 		path: buildOutputDir,
-		filename: 'index.js',
-		publicPath: buildOutputDir
+		filename: 'index.js'
 	},
     externals: {
         'angular': 'angular',
