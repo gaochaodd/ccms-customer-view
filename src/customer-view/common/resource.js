@@ -67,6 +67,9 @@ const setComponentResource = api_prefix => {
         getSoloPlatRfmInfo: genResource(`${api_prefix}customerTag/:uniId/soloPlatRfm`),
 
         // 获取指定平台店铺列表
-        getPlatShopsInfo: genResource(`${api_prefix}customer/shops`)
+        getPlatShopsInfo: genResource(`${api_prefix}customer/shops`),
+
+	    // 获取地址信息
+        getLocationAreas: genResource(`${api_prefix}unificationAreas`)
     }
 };

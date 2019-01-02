@@ -81,6 +81,11 @@ function getEvaluationInfo(body) {
 	return componentResource.evaluationInfo.get(body).$promise;
 }
 
+// 获取地址信息
+function getLocationAreas() {
+	return componentResource.getLocationAreas.query().$promise;
+}
+
 const service = {
 	getCustomerInfo,
 	getCustomerCardInfo,
@@ -96,7 +101,8 @@ const service = {
 	getPlatShopsInfo,
 	getAreaInfo,
 	getReceiveAddressDecryptMessage,
-	getEvaluationInfo
+	getEvaluationInfo,
+	getLocationAreas
 };
 
 export default service;

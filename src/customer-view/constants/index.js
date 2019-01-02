@@ -1,3 +1,4 @@
+
 // 平台列表
 export const PLAT_LIST = [
 	{
@@ -74,3 +75,6 @@ export const TAB_TITLE = [
 	{name: '评价信息'},
 	{name: '权益信息'},
 	{name: '常用收货信息'}];
+
+// 地址信息 localStorage key
+export const UNIFIFCATION_AREA_SELECTOR_DATA = 'UNIFIFCATION_AREA_SELECTOR_DATA';

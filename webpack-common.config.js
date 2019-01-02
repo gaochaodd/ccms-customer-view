@@ -33,7 +33,7 @@ module.exports = {
         }, {
 			test: /\.(jpe?g|png|gif|svg)$/i,
 			loaders: [
-				'url-loader'
+				'file-loader?limit=1000&hash=sha512&digest=hex&name=[path][name]-[hash:8].[ext]'
 			]
 		}]
 	}

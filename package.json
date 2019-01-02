@@ -1,6 +1,6 @@
 {
     "name": "ccms-customer-view",
-    "version": "0.0.6",
+    "version": "0.0.9",
     "description": "ccms-customer-view",
     "main": "index.js",
     "scripts": {
@@ -35,12 +35,12 @@
         "fe-mock-server": "^0.1.0",
         "file-loader": "^0.8.5",
         "html-loader": "^0.4.3",
-        "url-loader": "^1.1.2",
+        "json-loader": "^0.5.4",
         "json-mock-kuitos": "^1.2.0",
         "less": "^3.9.0",
         "less-loader": "^4.1.0",
         "style-loader": "^0.20.3",
-        "json-loader": "^0.5.4",
+        "url-loader": "^1.1.2",
         "webpack": "^2.6.1",
         "webpack-dev-middleware": "^2.0.4",
         "webpack-hot-middleware": "^2.24.3",

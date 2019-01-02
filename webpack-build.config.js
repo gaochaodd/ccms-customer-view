@@ -4,7 +4,7 @@ const CleanPlugin = require('clean-webpack-plugin');
 const merge = require('webpack-merge');
 
 const srcDir = path.join(__dirname, './src');
-const buildOutputDir = path.join(__dirname, './dist');
+const buildOutputDir = path.join(__dirname, './dist/');
 const webpackCommon = require('./webpack-common.config.js');
 
 
@@ -17,7 +17,7 @@ const production = () => ({
 	output: {
 		path: buildOutputDir,
 		filename: 'index.js',
-		publicPath: './'
+		publicPath: buildOutputDir
 	},
     externals: {
         'angular': 'angular',

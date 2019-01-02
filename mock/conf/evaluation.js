@@ -22,7 +22,7 @@ module.exports = {
 					{
 						'productId': '000001',
 						'productName': '数据赢家',
-						'picUrl': 'http://img02.tooopen.com/images/20150722/tooopen_sy_134922518248.jpg',
+						'picUrl': 'https://www.lovejavascript.com/upload/user/photo/8495_1.jpg',
 						'detailUrl': 'https://baidu.com',
 						'skuId': '999999',
 						'skuDetail': '颜色:蓝色;型号:XL',
@@ -34,7 +34,7 @@ module.exports = {
 					{
 						'productId': '000001',
 						'productName': '数据赢家数据赢家数据赢家数据赢家数据赢家数据赢家数据赢家数据赢家数据赢家数据赢家数据赢家数据赢家数据赢家数据赢家数据赢家数据赢家数据赢家数据赢家数据赢家',
-						'picUrl': 'http://img02.tooopen.com/images/20150722/tooopen_sy_134922518248.jpg',
+						'picUrl': 'https://www.lovejavascript.com/upload/user/photo/8495_1.jpg',
 						'detailUrl': 'https://baidu.com',
 						'skuId': '999999',
 						'skuDetail': '颜色:蓝色;型号:XL',
@@ -57,7 +57,7 @@ module.exports = {
 					{
 						'productId': '000001',
 						'productName': '数据赢家',
-						'picUrl': 'http://img02.tooopen.com/images/20150722/tooopen_sy_134922518248.jpg',
+						'picUrl': 'https://www.lovejavascript.com/upload/user/photo/8495_1.jpg',
 						'detailUrl': 'https://baidu.com',
 						'skuId': '999999',
 						'skuDetail': '颜色:蓝色;型号:XL',
@@ -69,7 +69,7 @@ module.exports = {
 					{
 						'productId': '000001',
 						'productName': '数据赢家',
-						'picUrl': 'http://img02.tooopen.com/images/20150722/tooopen_sy_134922518248.jpg',
+						'picUrl': 'https://www.lovejavascript.com/upload/user/photo/8495_1.jpg',
 						'detailUrl': 'https://baidu.com',
 						'skuId': '999999',
 						'skuDetail': '颜色:蓝色;型号:XL',

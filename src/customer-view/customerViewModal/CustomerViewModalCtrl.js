@@ -12,7 +12,7 @@ import unknownAvatar from '../assets/img/unknown.png';
 
 import utils from '../common/utils';
 
-import { GENDER_LIST, PLAT_LIST, TAB_TITLE } from '../constants/index';
+import { UNIFIFCATION_AREA_SELECTOR_DATA, GENDER_LIST, PLAT_LIST, TAB_TITLE } from '../constants/index';
 
 
 @Inject('$ccModal', '$scope', '$ccTips', '$element', '$timeout', '$window', 'uniId')
@@ -34,11 +34,13 @@ export default class customerViewCtrl {
 		this.init();
 	}
 	// 初始化
-	init() {
-		this.tabTitle = TAB_TITLE;
+    async init() {
+        this.customerViewLoading = true;
+
+        this.tabTitle = TAB_TITLE;
 		this.today = new Date();
 		this.index = 0;
-		this.getCustomerInfo();
+
 		this.fieldsMap = {
 			valueField: 'value',
 			displayField: 'title'
@@ -72,112 +74,140 @@ export default class customerViewCtrl {
 			{title: '苏宁账号', field: 'SUNING', type: 'platAccount'},
 			{title: '美丽说账号', field: 'MGJ', type: 'platAccount'},
 			{title: '当当账号', field: 'DD', type: 'platAccount'}];
+
+        const customerInfo = await this.getCustomerInfo();
+        this.initCustomerInfo(customerInfo);
+        await this.initAreasData();
+
+        this._$timeout(() => {
+            this.customerViewLoading = false;
+        });
 	}
-	getCustomerInfo() {
-		this.customerViewLoading = true;
-		customerService.getCustomerInfo(this._uniId).then(res => {
-			this.customerViewLoading = false;
-			const {
-				fullName,
-				// fullNameSource,
-				gender,
-				// genderSource,
-				birthday,
-				// birthdaySource,
-				mobile,
-				// mobileSource,
-				email,
-				// emailSource,
-				state,
-				city,
-				district,
-				town,
-				stateName,
-				cityName,
-				districtName,
-				townName,
-				address,
-				// addressSource,
-				platAccountList
-				} = res;
-			// 整理用户账号区域
-			platAccountList.forEach(plat => {
-				this.customerIdsList.forEach(item => {
-					if (item.field === 'OMNI') {
-						item.value = this._uniId;
-					}
-					if (item.field === plat.platCode) {
-						this.selectedPlatList.push(plat.platCode);
-						item.value = plat[item.type];
-						return;
-					}
-				});
-				if (plat.platCode === 'WX') {
-					this.wxAvatarUrl = plat.platAvatar;
-				}
-				if (plat.platCode === 'YOUZAN') {
-					this.yuoZanAvatarUrl = plat.platAvatar;
-				}
-			});
-			// 保存加密信息
-			this.encodeMessage = {
-				fullName,
-				mobile,
-				email
-			};
-			// 整理用户基本信息模块
-			this.customerBasicInfo = {
-				fullName,
-				// isFullNameChangable: fullNameSource !== 'BIND_CARD',
-				gender,
-				// isGenderChangable: genderSource !== 'BIND_CARD',
-				birthday: this.reformBirthday(birthday),
-				// isBirthdayChangable: birthdaySource !== 'BIND_CARD',
-				age: this.reformAge(birthday),
-				mobile: mobile,
-				// isMobileChangable: mobileSource !== 'BIND_CARD',
-				email: email,
-				// isEmailChangable: emailSource !== 'BIND_CARD',
-				address: `${stateName || ''} ${cityName || ''} ${districtName || ''} ${townName || ''} ${address || ''}`
-				// isAddressChangable: addressSource !== 'BIND_CARD'
-			};
-			// 整理用户头像
-			this.setAvatar(gender);
-			// 初始化用户地区信息
-			this.selectedArea = {state, city, district, town, address};
-			// 整理用户销售信息
-			for (const key in this.customerMarketingInfoFirstCol) {
-				if (this.customerMarketingInfoFirstCol[key].type === 'platList') {
-					this.customerMarketingInfoFirstCol[key].value = this.reformPlatList(res[key]);
-					// 420为展示区最大宽度
-					this.customerMarketingInfoFirstCol[key].overWidth = utils.getWidth(this.customerMarketingInfoFirstCol[key].value) > 240;
-				} else if (this.customerMarketingInfoFirstCol[key].type === 'shopList') {
-					this.customerMarketingInfoFirstCol[key].value = this.reformShopList(res[key]);
-					// 420为展示区最大宽度
-					this.customerMarketingInfoFirstCol[key].overWidth = utils.getWidth(this.customerMarketingInfoFirstCol[key].value) > 240;
-				} else {
-					this.customerMarketingInfoFirstCol[key].value = res[key];
-				}
-			}
-			for (const key in this.customerMarketingInfoSecondCol) {
-				if (this.customerMarketingInfoSecondCol[key].type === 'plat') {
-					this.customerMarketingInfoSecondCol[key].value = this.reformPlat(res[key]);
-				} else {
-					this.customerMarketingInfoSecondCol[key].value = res[key];
-				}
-			}
-			for (const key in this.customerMarketingInfoThirdCol) {
-				if (this.customerMarketingInfoThirdCol[key].type === 'plat') {
-					this.customerMarketingInfoThirdCol[key].value = this.reformPlat(res[key]);
-				} else {
-					this.customerMarketingInfoThirdCol[key].value = res[key];
-				}
-			}
-			this.boughtPlatformList = [];
-			// 666为展示区最大宽度
-			this.isAddressOverWidth = utils.getWidth(this.customerBasicInfo.address) > 666;
-		});
-	};
+
+    /**
+     * 获取客户信息数据
+     * @returns {Promise<void>}
+     */
+    async getCustomerInfo() {
+        return await customerService.getCustomerInfo(this._uniId);
+    }
+
+    /**
+     * 初始化地址信息
+     */
+    async initAreasData() {
+	    if (!localStorage.getItem('UNIFIFCATION_AREA_SELECTOR_DATA')) {
+		    await customerService.getLocationAreas().then(areas => {
+			    localStorage.setItem('UNIFIFCATION_AREA_SELECTOR_DATA', JSON.stringify(areas));
+		    });
+	    }
+	    return JSON.parse(localStorage.getItem('UNIFIFCATION_AREA_SELECTOR_DATA'));
+    }
+    /**
+     * 初始化客户信息
+     * @param customerInfo
+     */
+	initCustomerInfo(customerInfo) {
+        const {
+            fullName,
+            // fullNameSource,
+            gender,
+            // genderSource,
+            birthday,
+            // birthdaySource,
+            mobile,
+            // mobileSource,
+            email,
+            // emailSource,
+            state,
+            city,
+            district,
+            town,
+            stateName,
+            cityName,
+            districtName,
+            townName,
+            address,
+            // addressSource,
+            platAccountList
+        } = customerInfo;
+        // 整理用户账号区域
+        platAccountList.forEach(plat => {
+            this.customerIdsList.forEach(item => {
+                if (item.field === 'OMNI') {
+                    item.value = this._uniId;
+                }
+                if (item.field === plat.platCode) {
+                    this.selectedPlatList.push(plat.platCode);
+                    item.value = plat[item.type];
+                    return;
+                }
+            });
+            if (plat.platCode === 'WX') {
+                this.wxAvatarUrl = plat.platAvatar;
+            }
+            if (plat.platCode === 'YOUZAN') {
+                this.yuoZanAvatarUrl = plat.platAvatar;
+            }
+        });
+        // 保存加密信息
+        this.encodeMessage = {
+            fullName,
+            mobile,
+            email
+        };
+        // 整理用户基本信息模块
+        this.customerBasicInfo = {
+            fullName,
+            // isFullNameChangable: fullNameSource !== 'BIND_CARD',
+            gender,
+            // isGenderChangable: genderSource !== 'BIND_CARD',
+            birthday: this.reformBirthday(birthday),
+            // isBirthdayChangable: birthdaySource !== 'BIND_CARD',
+            age: this.reformAge(birthday),
+            mobile: mobile,
+            // isMobileChangable: mobileSource !== 'BIND_CARD',
+            email: email,
+            // isEmailChangable: emailSource !== 'BIND_CARD',
+            address: `${stateName || ''} ${cityName || ''} ${districtName || ''} ${townName || ''} ${address || ''}`
+            // isAddressChangable: addressSource !== 'BIND_CARD'
+        };
+        // 整理用户头像
+        this.setAvatar(gender);
+        // 初始化用户地区信息
+        this.selectedArea = {state, city, district, town, address};
+        // 整理用户销售信息
+        for (const key in this.customerMarketingInfoFirstCol) {
+            if (this.customerMarketingInfoFirstCol[key].type === 'platList') {
+                this.customerMarketingInfoFirstCol[key].value = this.reformPlatList(customerInfo[key]);
+                // 420为展示区最大宽度
+                this.customerMarketingInfoFirstCol[key].overWidth = utils.getWidth(this.customerMarketingInfoFirstCol[key].value) > 240;
+            } else if (this.customerMarketingInfoFirstCol[key].type === 'shopList') {
+                this.customerMarketingInfoFirstCol[key].value = this.reformShopList(customerInfo[key]);
+                // 420为展示区最大宽度
+                this.customerMarketingInfoFirstCol[key].overWidth = utils.getWidth(this.customerMarketingInfoFirstCol[key].value) > 240;
+            } else {
+                this.customerMarketingInfoFirstCol[key].value = customerInfo[key];
+            }
+        }
+        for (const key in this.customerMarketingInfoSecondCol) {
+            if (this.customerMarketingInfoSecondCol[key].type === 'plat') {
+                this.customerMarketingInfoSecondCol[key].value = this.reformPlat(customerInfo[key]);
+            } else {
+                this.customerMarketingInfoSecondCol[key].value = customerInfo[key];
+            }
+        }
+        for (const key in this.customerMarketingInfoThirdCol) {
+            if (this.customerMarketingInfoThirdCol[key].type === 'plat') {
+                this.customerMarketingInfoThirdCol[key].value = this.reformPlat(customerInfo[key]);
+            } else {
+                this.customerMarketingInfoThirdCol[key].value = customerInfo[key];
+            }
+        }
+        this.boughtPlatformList = [];
+        // 666为展示区最大宽度
+        this.isAddressOverWidth = utils.getWidth(this.customerBasicInfo.address) > 666;
+    }
 
 	/**
 	 * 设置头像
