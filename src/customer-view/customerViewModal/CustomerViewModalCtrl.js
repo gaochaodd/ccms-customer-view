@@ -96,12 +96,12 @@ export default class customerViewCtrl {
      * 初始化地址信息
      */
     async initAreasData() {
-	    if (!localStorage.getItem('UNIFIFCATION_AREA_SELECTOR_DATA')) {
+	    if (!localStorage.getItem(UNIFIFCATION_AREA_SELECTOR_DATA)) {
 		    await customerService.getLocationAreas().then(areas => {
-			    localStorage.setItem('UNIFIFCATION_AREA_SELECTOR_DATA', JSON.stringify(areas));
+			    localStorage.setItem(UNIFIFCATION_AREA_SELECTOR_DATA, JSON.stringify(areas));
 		    });
 	    }
-	    return JSON.parse(localStorage.getItem('UNIFIFCATION_AREA_SELECTOR_DATA'));
+	    return JSON.parse(localStorage.getItem(UNIFIFCATION_AREA_SELECTOR_DATA));
     }
     /**
      * 初始化客户信息

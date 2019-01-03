@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const merge = require('webpack-merge');
+const { version } = require('./package.json');
 
 const CleanPlugin = require('clean-webpack-plugin');
 
@@ -24,6 +25,12 @@ const development = {
         new webpack.DefinePlugin({
             __DEVELOPMENT__: true
         }),
+		// 配置环境变量
+		new webpack.DefinePlugin({
+			'process.env': {
+				VERSION: JSON.stringify(version)
+			}
+		}),
 		new webpack.HotModuleReplacementPlugin()
 	]
 };

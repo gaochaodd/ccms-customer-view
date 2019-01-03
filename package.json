@@ -1,11 +1,11 @@
 {
     "name": "ccms-customer-view",
-    "version": "0.0.9",
+    "version": "0.0.12",
     "description": "ccms-customer-view",
     "main": "index.js",
     "scripts": {
         "start": "npm run mock & node ./server.js",
-        "build": "webpack --config webpack-build.config.js && cp package.json ./dist/package.json && cp README.md ./dist/README.md",
+        "build": "./scripts/build.sh",
         "mock": "fe-mock-server --mock ./mock/conf --port 3334"
     },
     "repository": {
