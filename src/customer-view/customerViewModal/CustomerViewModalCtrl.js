@@ -96,7 +96,13 @@ export default class customerViewCtrl {
      * 初始化地址信息
      */
     async initAreasData() {
-	    if (!localStorage.getItem(UNIFIFCATION_AREA_SELECTOR_DATA)) {
+	    let areasData = null;
+	    try {
+		    areasData = JSON.parse(localStorage.getItem(UNIFIFCATION_AREA_SELECTOR_DATA));
+	    } catch (e) {
+	    	// 地址信息格式错误
+	    }
+	    if (!areasData || !Array.isArray(areasData) || areasData.length === 0) {
 		    await customerService.getLocationAreas().then(areas => {
 			    localStorage.setItem(UNIFIFCATION_AREA_SELECTOR_DATA, JSON.stringify(areas));
 		    });
