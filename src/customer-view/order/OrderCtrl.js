@@ -6,10 +6,9 @@
 import { Inject } from 'angular-es-utils';
 import service from '../common/service';
 import {PLAT_LIST} from '../constants/index';
-import moment from 'moment';
 import utils from '../common/utils'
 
-@Inject('$scope', '$ccTips', '$element', '$gridManager')
+@Inject('$scope', '$ccTips', '$element', '$filter', '$gridManager')
 export default class OrderCtrl {
     constructor() {
         // 提示弹窗
@@ -65,8 +64,6 @@ export default class OrderCtrl {
             },
             topFullColumn: {
                 template: row => {
-                    row.createdStr = row.created ? moment(row.created).format('YYYY-MM-DD HH:mm:SS') : '--';
-                    row.payTimeStr = row.payTime ? moment(row.payTime).format('YYYY-MM-DD HH:mm:SS') : '--';
                     return `<div class="main-order-info-style">
 								<div style="display:flex; line-height: 16px">
 								<svg style="fill: currentColor;width: 16px;height: 16px"
@@ -84,8 +81,8 @@ export default class OrderCtrl {
 											<cv-copyable copy-text="row.orderId"/>
 										</span>
 									</div>
-									<div style="margin-right: 40px">下单：<span style="display: inline-block; min-width: 110px">{{row.createdStr}}</span></div>
-									<div style="margin-right: 40px">付款：<span style="display: inline-block; min-width: 110px">{{row.payTimeStr}}</span></div>
+									<div style="margin-right: 40px">下单：<span style="display: inline-block; min-width: 110px">{{row.created || '--'}}</span></div>
+									<div style="margin-right: 40px">付款：<span style="display: inline-block; min-width: 110px">{{row.payTimeStr || '--'}}</span></div>
 									<div>交易状态：{{row.orderStatus}}</div>
 								</div>
 							</div>`;

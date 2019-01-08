@@ -2,7 +2,6 @@
  * @author  chao
  * @date on 2018/11/07
  */
-import moment from 'moment';
 import { Inject } from 'angular-es-utils';
 
 import customerService from '../common/service';
@@ -15,7 +14,7 @@ import utils from '../common/utils';
 import { UNIFIFCATION_AREA_SELECTOR_DATA, GENDER_LIST, PLAT_LIST, TAB_LIST, CUSTOMER_PLAT_ID_LIST } from '../constants/index';
 
 
-@Inject('$ccModal', '$scope', '$ccTips', '$element', '$timeout', '$window', 'uniId')
+@Inject('$ccModal', '$scope', '$ccTips', '$element', '$timeout', '$window', '$filter', 'uniId')
 export default class customerViewCtrl {
 	constructor() {
 		// 提示弹窗
@@ -283,15 +282,16 @@ export default class customerViewCtrl {
 	 */
 	reformBirthday(birthday) {
 		if (!birthday) return '--';
-		return moment(`${birthday}`).format('YYYY/MM/DD');
+		return utils.formatDateNumber(birthday, 'YYYY/mm/DD');
 	}
 	/**
 	 * 格式化年龄
-	 * @param birthday 参数格式'YYYYMMDD'
+	 * @param birthday
 	 */
 	reformAge(birthday) {
 		if (!birthday) return '--';
-		return `${moment().year() - moment(`${birthday}`).year()}岁`;
+		const year = utils.splitDateNumber(birthday).year;
+		return `${new Date().getFullYear() - year}岁`;
 	}
 	/**
 	 * 格式化平台
@@ -546,7 +546,7 @@ export default class customerViewCtrl {
 	}
 	handleBirthdaySave() {
 		this.birthdayLoading = true;
-		customerService.setCustomerInfo(this._uniId, {field: 'birthday', value: moment(this.birthday).format('YYYYMMDD')}).then(res => {
+		customerService.setCustomerInfo(this._uniId, {field: 'birthday', value: this._$filter('date')(this.birthday, 'yyyyMMdd')}).then(res => {
 			this.customerBasicInfo.birthday = this.reformBirthday(res.data);
 			this.customerBasicInfo.age = this.reformAge(res.data);
 			this.onBirthdayEdit = false;

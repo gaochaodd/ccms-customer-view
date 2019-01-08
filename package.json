@@ -1,6 +1,6 @@
 {
     "name": "ccms-customer-view",
-    "version": "0.0.13",
+    "version": "0.0.14",
     "description": "ccms-customer-view",
     "main": "index.js",
     "scripts": {
@@ -57,7 +57,6 @@
         "ccms-icons": "0.0.8",
         "ccms-svg-icons": "0.0.7",
         "gridmanager-angular-1.x": "^0.1.5",
-        "gridmanager-ccms-skin": "^0.1.2",
-        "moment": "^2.22.2"
+        "gridmanager-ccms-skin": "^0.1.2"
     }
 }

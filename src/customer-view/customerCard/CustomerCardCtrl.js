@@ -9,9 +9,9 @@
 import {Inject} from 'angular-es-utils';
 import customerCardService from '../common/service';
 import { componentResource } from '../common/resource';
-import moment from 'moment';
+import utils from '../common/utils';
 
-@Inject('$scope', '$element', '$timeout', '$gridManager')
+@Inject('$scope', '$element', '$timeout', '$filter', '$gridManager')
 export default class customerCardCtrl {
 	constructor() {
 		this.init();
@@ -136,7 +136,7 @@ export default class customerCardCtrl {
 	 * 转换时间格式
 	 */
 	formatDate(date) {
-		return moment(date).format('YYYY/MM/DD');
+		return this._$filter('date')(new Date(date), 'yyyy/MM/dd');
 	}
 
 	/**
