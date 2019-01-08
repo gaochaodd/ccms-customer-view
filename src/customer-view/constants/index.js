@@ -49,6 +49,19 @@ export const PLAT_LIST = [
 	}
 ];
 
+// 客户平台ID列表
+export const CUSTOMER_PLAT_ID_LIST = [
+	{title: '全渠道客户ID', field: 'OMNI', type: 'platAccount'},
+	{title: '淘宝昵称', field: 'TAOBAO', type: 'platAccount'},
+	// {title: '微信昵称', field: 'WX'},
+	{title: '京东用户名', field: 'JOS', type: 'platAccount'},
+	{title: '线下账号', field: 'OFFLINE', type: 'platAccount'},
+	{title: '有赞昵称', field: 'YOUZAN', type: 'platAccount'},
+	{title: '苏宁账号', field: 'SUNING', type: 'platAccount'},
+	{title: '美丽说账号', field: 'MGJ', type: 'platAccount'},
+	{title: '当当账号', field: 'DD', type: 'platAccount'}
+];
+
 // 客户性别
 export const GENDER_LIST = [
 	{
@@ -66,15 +79,15 @@ export const GENDER_LIST = [
 ];
 
 // tab选项
-export const TAB_TITLE = [
-	{name: '客户标签'},
-	{name: '会员卡信息'},
-	{name: '订单信息'},
-	{name: '营销信息'},
-	{name: '互动信息'},
-	{name: '评价信息'},
-	{name: '权益信息'},
-	{name: '常用收货信息'}];
+export const TAB_LIST = [
+	{key: 'customerLabel', name: '客户标签'},
+	{key: 'customerCard', name: '会员卡信息'},
+	{key: 'order', name: '订单信息'},
+	{key: 'marketing', name: '营销信息'},
+	{key: 'interactive', name: '互动信息'},
+	{key: 'evaluation', name: '评价信息'},
+	{key: 'preferential', name: '权益信息'},
+	{key: 'receiveAddress', name: '常用收货信息'}];
 
 // 地址信息 localStorage key
 export const UNIFIFCATION_AREA_SELECTOR_DATA = 'UNIFIFCATION_AREA_SELECTOR_DATA';

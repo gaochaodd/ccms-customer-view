@@ -16,7 +16,7 @@ const evaluationOption = {
 	controllerAs: 'vm',
 	bindings: {
 		'uniId': '<',
-		'selectedPlatList': '<'
+		'customerOwnedPlatList': '<'
 	}
 };
 

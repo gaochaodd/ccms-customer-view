@@ -26,68 +26,68 @@
 						ng-mouseleave="vm.prepareEdit = false">
 						<li class="customer-attr-info-block-detail-style">
 						姓名：
-						<cc-loading ng-if="vm.fullNameLoading"></cc-loading>
+						<cc-loading ng-if="vm.customerName.loading"></cc-loading>
 						<div
-						ng-if="!vm.fullNameLoading"
+						ng-if="!vm.customerName.loading"
 						class="normal-attr-info-style">
-							<div ng-if="!vm.onFullNameEdit && !vm.fullNameLoading">
+							<div ng-if="!vm.customerName.isEditing && !vm.customerName.loading">
 								{{vm.customerBasicInfo.fullName ? vm.customerBasicInfo.fullName : "--"}}
 							</div>
 							<input
 							class="customer-attr-info-block-input-style"
 							id="fullName"
-							ng-if="vm.onFullNameEdit"
+							ng-if="vm.customerName.isEditing"
 							ng-model="vm.customerBasicInfo.fullName"
 							ng-keyup="vm.handleFullNameEdit($event)"/>
 							<span>
 								<i
-								ng-if="vm.prepareEdit && !vm.onFullNameEdit"
+								ng-if="vm.prepareEdit && !vm.customerName.isEditing"
 								class="iconfont icon-edit1"
 								ng-click="vm.editFullName()"></i>
 								<i
-								ng-if="vm.prepareEdit && vm.onFullNameCheck && !vm.onFullNameEdit && vm.customerBasicInfo.fullName"
+								ng-if="vm.prepareEdit && vm.customerName.displayFullName && !vm.customerName.isEditing && vm.customerBasicInfo.fullName"
 								class="iconfont icon-icon_yulan"
 								ng-click="vm.checkFullName()"></i>
 								<i
-								ng-if="vm.prepareEdit && !vm.onFullNameCheck && !vm.onFullNameEdit && vm.customerBasicInfo.fullName"
+								ng-if="vm.prepareEdit && !vm.customerName.displayFullName && !vm.customerName.isEditing && vm.customerBasicInfo.fullName"
 								class="iconfont icon-miwen"
 								ng-click="vm.checkFullName()"></i>
 							</span>
 							<i
-							ng-if="vm.onFullNameEdit"
+							ng-if="vm.customerName.isEditing"
 							class="iconfont icon-finish"
 							ng-click="vm.handleFullNameSave()"></i>
 							<i
-							ng-if="vm.onFullNameEdit"
+							ng-if="vm.customerName.isEditing"
 							class="iconfont icon-close"
 							ng-click="vm.cancelFullNameSave()"></i>
 						</div>
 						</li>
 						<li class="customer-attr-info-block-detail-style">
 						性别：
-							<cc-loading ng-if="vm.genderLoading"></cc-loading>
+							<cc-loading ng-if="vm.gender.loading"></cc-loading>
 							<div
 							class="normal-attr-info-style"
-							ng-if="!vm.genderLoading">
-								<div ng-if="!vm.onGenderEdit">{{vm.reformGender(vm.customerBasicInfo.gender)}}</div>
+							ng-if="!vm.gender.loading">
+								<div ng-if="!vm.gender.isEditing">{{vm.reformGender(vm.customerBasicInfo.gender)}}</div>
 								<cc-dropdown-select
 								class="customer-attr-info-block-input-style"
-								ng-if="vm.onGenderEdit"
-								model="vm.gender"
-								datalist="vm.customerSexList"
-								mapping="vm.fieldsMap">
+								ng-if="vm.gender.isEditing"
+								model="vm.gender.selected"
+								datalist="vm.gender.listForEditing"
+								mapping="vm.gender.fieldsMap">
 								</cc-dropdown-select>
 								<i
-								ng-if="vm.prepareEdit && !vm.onGenderEdit"
+								ng-if="vm.prepareEdit && !vm.gender.isEditing"
 								class="iconfont icon-edit1"
 								ng-click="vm.editGender()"
 								></i>
 								<i
-								ng-if="vm.onGenderEdit"
+								ng-if="vm.gender.isEditing"
 								class="iconfont icon-finish"
 								ng-click="vm.handleGenderSave()"></i>
 								<i
-								ng-if="vm.onGenderEdit"
+								ng-if="vm.gender.isEditing"
 								class="iconfont icon-close"
 								ng-click="vm.cancelGenderSave()"></i>
 							</div>
@@ -256,32 +256,32 @@
     </div>
 	<div class="tab-set">
 		<ul>
-			<li class="tab" ng-class='{active:vm.index === $index}' ng-click="vm.changeTab($index)" ng-repeat="tab in vm.tabTitle">{{tab.name}}</li>
+			<li class="tab" ng-class='{active:vm.nowLabel === tab.key}' ng-click="vm.changeTab(tab.key)" ng-repeat="tab in vm.tabList">{{tab.name}}</li>
 		</ul>
 	</div>
 	<div>
 		<!--客户标签-->
-		<customer-label uni-id="vm._uniId" ng-if="vm.index === 0"></customer-label>
+		<customer-label uni-id="vm._uniId" ng-if="vm.nowLabel === 'customerLabel'"></customer-label>
 
 		<!--会员卡信息-->
-		<customer-card uni-id="vm._uniId" ng-if="vm.index === 1"></customer-card>
+		<customer-card uni-id="vm._uniId" ng-if="vm.nowLabel === 'customerCard'"></customer-card>
 
 		<!--订单信息-->
-		<order uni-id="vm._uniId" selected-plat-list="vm.selectedPlatList" ng-if="vm.index === 2"></order>
+		<order uni-id="vm._uniId" customer-owned-plat-list="vm.customerOwnedPlatList" ng-if="vm.nowLabel === 'order'"></order>
 
 		<!--营销信息-->
-		<marketing uni-id="vm._uniId" ng-if="vm.index === 3"></marketing>
+		<marketing uni-id="vm._uniId" ng-if="vm.nowLabel === 'marketing'"></marketing>
 
 		<!--互动信息-->
-		<interactive uni-id="vm._uniId" ng-if="vm.index === 4"></interactive>
+		<interactive uni-id="vm._uniId" ng-if="vm.nowLabel === 'interactive'"></interactive>
 
 		<!--评价信息-->
-		<evaluation uni-id="vm._uniId" selected-plat-list="vm.selectedPlatList" ng-if="vm.index === 5"></evaluation>
+		<evaluation uni-id="vm._uniId" customer-owned-plat-list="vm.customerOwnedPlatList" ng-if="vm.nowLabel === 'evaluation'"></evaluation>
 
 		<!--权益信息-->
-		<preferential uni-id="vm._uniId" ng-if="vm.index === 6"></preferential>
+		<preferential uni-id="vm._uniId" ng-if="vm.nowLabel === 'preferential'"></preferential>
 
 		<!--收货地址信息-->
-		<receive-address uni-id="vm._uniId" ng-if="vm.index === 7"></receive-address>
+		<receive-address uni-id="vm._uniId" ng-if="vm.nowLabel === 'receiveAddress'"></receive-address>
 	</div>
 </div>

@@ -56,8 +56,8 @@
         "ccms-components": "2.37.6-0",
         "ccms-icons": "0.0.8",
         "ccms-svg-icons": "0.0.7",
-        "gridmanager-angular-1.x": "^0.1.0",
-        "gridmanager-ccms-skin": "^0.0.23",
+        "gridmanager-angular-1.x": "^0.1.5",
+        "gridmanager-ccms-skin": "^0.1.2",
         "moment": "^2.22.2"
     }
 }

@@ -12,7 +12,7 @@ import unknownAvatar from '../assets/img/unknown.png';
 
 import utils from '../common/utils';
 
-import { UNIFIFCATION_AREA_SELECTOR_DATA, GENDER_LIST, PLAT_LIST, TAB_TITLE } from '../constants/index';
+import { UNIFIFCATION_AREA_SELECTOR_DATA, GENDER_LIST, PLAT_LIST, TAB_LIST, CUSTOMER_PLAT_ID_LIST } from '../constants/index';
 
 
 @Inject('$ccModal', '$scope', '$ccTips', '$element', '$timeout', '$window', 'uniId')
@@ -22,32 +22,57 @@ export default class customerViewCtrl {
 		this.TipsModal = this._$element[0].querySelector('.modal-body');
 		// 性别
 		this.customerSexConf = GENDER_LIST;
-		this.customerSexList = [{
-			title: '男',
-			value: 'm'
-		},
-		{
-			title: '女',
-			value: 'f'
-		}];
+
 		this.platConf = PLAT_LIST;
 		this.init();
+		this.initData();
 	}
-	// 初始化
-    async init() {
+
+	/**
+	 * 初始化
+	 * @returns {Promise<void>}
+	 */
+    init() {
         this.customerViewLoading = true;
 
-        this.tabTitle = TAB_TITLE;
-		this.today = new Date();
-		this.index = 0;
+		// tab切换区域 默认显示第一个
+        this.tabList = TAB_LIST;
+		this.nowLabel = this.tabList[0].key;
 
-		this.fieldsMap = {
-			valueField: 'value',
-			displayField: 'title'
+		this.today = new Date();
+
+		// 姓名
+		this.customerName = {
+			loading: false,
+
+			// 用于控制是否显示全称
+			displayFullName: true,
+
+			// 是否处于编辑状态
+			isEditing: false
 		};
-		this.selectedPlatList = [];
+
+		// 性别
+		this.gender = {
+			selected: '',
+			isEditing: false,
+			loading: false,
+
+			// 完整列表
+			list: GENDER_LIST,
+
+			// 编辑时使用的列表，该列表不包含未知性别
+			listForEditing: GENDER_LIST.splice(0, 2),
+			fieldsMap: {
+				valueField: 'value',
+				displayField: 'title'
+			}
+		};
+
+		// 客户拥有的平台列表
+		this.customerOwnedPlatList = [];
 		this.selectedArea = {};
-		this.onFullNameCheck = this.onMobileCheck = this.onEmailCheck = true;
+		this.onMobileCheck = this.onEmailCheck = true;
 		this.prepareEditFullName = false;
 		this.customerMarketingInfoFirstCol = {
 			boughtPlatform: {title: '购买过的平台', type: 'platList'},
@@ -64,27 +89,24 @@ export default class customerViewCtrl {
 			lastPurchaseShopName: {title: '最近一次购买店铺', field: 'lastPurchaseShopName'},
 			averageCustomerPrice: {title: '平均客单价', field: 'averageCustomerPrice', type: 'money'}
 		};
-		this.customerIdsList = [
-			{title: '全渠道客户ID', field: 'OMNI', type: 'platAccount'},
-			{title: '淘宝昵称', field: 'TAOBAO', type: 'platAccount'},
-			// {title: '微信昵称', field: 'WX'},
-			{title: '京东用户名', field: 'JOS', type: 'platAccount'},
-			{title: '线下账号', field: 'OFFLINE', type: 'platAccount'},
-			{title: '有赞昵称', field: 'YOUZAN', type: 'platAccount'},
-			{title: '苏宁账号', field: 'SUNING', type: 'platAccount'},
-			{title: '美丽说账号', field: 'MGJ', type: 'platAccount'},
-			{title: '当当账号', field: 'DD', type: 'platAccount'}];
-
-        const customerInfo = await this.getCustomerInfo();
-        this.initCustomerInfo(customerInfo);
-        await this.initAreasData();
-
-        this._$timeout(() => {
-            this.customerViewLoading = false;
-        });
 	}
 
-    /**
+
+	/**
+	 * 初始化数据
+	 * @returns {Promise<void>}
+	 */
+	async initData() {
+		const customerInfo = await this.getCustomerInfo();
+		this.initCustomerInfo(customerInfo);
+		await this.initAreasData();
+
+		this._$timeout(() => {
+			this.customerViewLoading = false;
+		});
+	}
+
+	/**
      * 获取客户信息数据
      * @returns {Promise<void>}
      */
@@ -109,6 +131,7 @@ export default class customerViewCtrl {
 	    }
 	    return JSON.parse(localStorage.getItem(UNIFIFCATION_AREA_SELECTOR_DATA));
     }
+
     /**
      * 初始化客户信息
      * @param customerInfo
@@ -137,17 +160,18 @@ export default class customerViewCtrl {
             // addressSource,
             platAccountList
         } = customerInfo;
+
         // 整理用户账号区域
         platAccountList.forEach(plat => {
-            this.customerIdsList.forEach(item => {
+	        this.customerIdsList = CUSTOMER_PLAT_ID_LIST.map(item => {
                 if (item.field === 'OMNI') {
                     item.value = this._uniId;
                 }
                 if (item.field === plat.platCode) {
-                    this.selectedPlatList.push(plat.platCode);
+                    this.customerOwnedPlatList.push(plat.platCode);
                     item.value = plat[item.type];
-                    return;
                 }
+                return item;
             });
             if (plat.platCode === 'WX') {
                 this.wxAvatarUrl = plat.platAvatar;
@@ -247,7 +271,7 @@ export default class customerViewCtrl {
 	 * @param gender 性别参数: 'f', 'm', 'w'
 	 */
 	reformGender(gender) {
-		const genderList = this.customerSexConf.filter(item => item.value === gender);
+		const genderList = this.gender.list.filter(item => item.value === gender);
 		if (genderList.length === 0) {
 			return '--';
 		}
@@ -282,6 +306,9 @@ export default class customerViewCtrl {
 	 * @returns 顿号隔开的platName串
 	 */
 	reformPlatList(platStr) {
+		if (!platStr) {
+			return '--';
+		}
 		const boughtPlatformList = [];
 		platStr.split(',').forEach(platCode => {
 			boughtPlatformList.push(this.reformPlat(platCode));
@@ -294,54 +321,48 @@ export default class customerViewCtrl {
 	 * @returns 顿号隔开的shopName串
 	 */
 	reformShopList(shopStr) {
+		if (!shopStr) {
+			return '--';
+		}
 		return shopStr.replace(/,/g, '、');
 	}
 
 	/**
-	 * 查看是否有模块正在编辑
+	 * 重置各模块编辑状态
 	 */
-	isEdit() {
-		this.onFullNameEdit = this.onMobileEdit = this.onEmailEdit = this.onBirthdayEdit = this.onBirthdayEdit = this.onGenderEdit = this.onAddressEdit = false;
+	resetEditState() {
+		this.customerName.isEditing = this.onMobileEdit = this.onEmailEdit = this.onBirthdayEdit = this.onBirthdayEdit = this.gender.isEditing = this.onAddressEdit = false;
 	}
 
 	/**
 	 * 查看/隐藏姓名
 	 */
 	checkFullName() {
-		this.fullNameLoading = true;
-		if (this.onFullNameCheck === true) {
+		this.customerName.loading = true;
+		if (this.customerName.displayFullName === true) {
 			customerService.getDecryptCustomerInfo(this._uniId, 'fullName').then(res => {
 				this.customerBasicInfo.fullName = res.data;
-				this.onFullNameCheck = false;
-				this.fullNameLoading = false;
+				this.customerName.displayFullName = false;
+				this.customerName.loading = false;
 			});
 			return;
 		}
 		this.customerBasicInfo.fullName = this.encodeMessage.fullName;
-		this.onFullNameCheck = true;
-		this.fullNameLoading = false;
+		this.customerName.displayFullName = true;
+		this.customerName.loading = false;
 	}
 	/**
 	 * 编辑姓名
 	 */
 	editFullName() {
-		if (this.isEdit()) return;
-		// if (this.customerBasicInfo.isFullNameChangable) {
-			// this.onFullNameEdit = true;
-			// customerService.getDecryptCustomerInfo(this._uniId, 'fullName').then(res => {
-			// 	this.customerBasicInfo.fullName = res.data;
-			// 	let element = this._$window.document.getElementById('fullName');
-			// 	if (element) element.focus();
-		// 	});
-		// 	return;
-		// }
-		this.onFullNameEdit = true;
+		this.resetEditState();
+
+		this.customerName.isEditing = true;
 		customerService.getDecryptCustomerInfo(this._uniId, 'fullName').then(res => {
 			this.customerBasicInfo.fullName = res.data;
 			let element = this._$window.document.getElementById('fullName');
 			if (element) element.focus();
 		});
-		// this._$ccTips.error('姓名为领卡入会时设置，请前往忠诚度管理中编辑', this.TipsModal);
 	}
 	/**
 	 * 监听姓名输入框
@@ -360,15 +381,15 @@ export default class customerViewCtrl {
 			this._$ccTips.error('姓名不能为空', this.TipsModal);
 			return;
 		}
-		this.fullNameLoading = true;
+		this.customerName.loading = true;
 		customerService.setCustomerInfo(this._uniId, {field: 'fullName', value: this.customerBasicInfo.fullName}).then(res => {
 			this.customerBasicInfo.fullName = res.data;
 			this.encodeMessage.fullName = res.data;
-			this.onFullNameCheck = true;
-			this.onFullNameEdit = false;
-			this.fullNameLoading = false;
+			this.customerName.displayFullName = true;
+			this.customerName.isEditing = false;
+			this.customerName.loading = false;
 		}).catch(err => {
-			this.fullNameLoading = false;
+			this.customerName.loading = false;
 			this._$ccTips.error(err.data.msg, this.TipsModal);
 		});
 	}
@@ -377,7 +398,7 @@ export default class customerViewCtrl {
 	 */
 	cancelFullNameSave() {
 		this.customerBasicInfo.fullName = this.encodeMessage.fullName;
-		this.onFullNameEdit = false;
+		this.customerName.isEditing = false;
 	}
 	/**
 	 * 查看/隐藏手机号
@@ -400,24 +421,14 @@ export default class customerViewCtrl {
 	 * 编辑手机号
 	 */
 	editMobile() {
-		if (this.isEdit()) return;
-		// 是否有权限修改电话号码（暂时取消）
-		// if (this.customerBasicInfo.isMobileChangable) {
-		// 	this.onMobileEdit = true;
-		// 	customerService.getDecryptCustomerInfo(this._uniId, 'mobile').then(res => {
-		// 		this.customerBasicInfo.mobile = res.data;
-		// 		let element = this._$window.document.getElementById('mobile');
-		// 		if (element) element.focus();
-		// 	});
-		// 	return;
-		// }
+		this.resetEditState();
+
 		this.onMobileEdit = true;
 		customerService.getDecryptCustomerInfo(this._uniId, 'mobile').then(res => {
 			this.customerBasicInfo.mobile = res.data;
 			let element = this._$window.document.getElementById('mobile');
 			if (element) element.focus();
 		});
-		// this._$ccTips.error('手机号为领卡入会时设置，请前往忠诚度管理中编辑', this.TipsModal);
 	}
 	/**
 	 * 监听手机号输入框
@@ -480,24 +491,15 @@ export default class customerViewCtrl {
 	 * 编辑邮箱
 	 */
 	editEmail() {
-		if (this.isEdit()) return;
-		// 是否可修改邮箱（暂时取消）
-		// if (this.customerBasicInfo.isEmailChangable) {
-		// 	this.onEmailEdit = true;
-		// 	customerService.getDecryptCustomerInfo(this._uniId, 'email').then(res => {
-		// 		this.customerBasicInfo.email = res.data;
-		// 		let element = this._$window.document.getElementById('email');
-		// 		if (element) element.focus();
-		// 	});
-		// 	return;
-		// }
+		this.resetEditState();
+
+
 		this.onEmailEdit = true;
 		customerService.getDecryptCustomerInfo(this._uniId, 'email').then(res => {
 			this.customerBasicInfo.email = res.data;
 			let element = this._$window.document.getElementById('email');
 			if (element) element.focus();
 		});
-		// this._$ccTips.error('邮箱为领卡入会时设置，请前往忠诚度管理中编辑', this.TipsModal);
 	}
 	handleEmailEdit(event) {
 		if (event.keyCode === 13) {
@@ -537,16 +539,10 @@ export default class customerViewCtrl {
 	 * 编辑生日
 	 */
 	editBirthday() {
-		if (this.isEdit()) return;
-		// 判断是否可编辑（暂时取消）
-		// if (this.customerBasicInfo.isBirthdayChangable) {
-		// 	this.birthday = new Date(this.customerBasicInfo.birthday);
-		// 	this.onBirthdayEdit = true;
-		// 	return;
-		// }
+		this.resetEditState();
+
 		this.birthday = new Date(this.customerBasicInfo.birthday);
 		this.onBirthdayEdit = true;
-		// this._$ccTips.error('生日为领卡入会时设置，请前往忠诚度管理中编辑', this.TipsModal);
 	}
 	handleBirthdaySave() {
 		this.birthdayLoading = true;
@@ -570,27 +566,23 @@ export default class customerViewCtrl {
 	 * 编辑性别
 	 */
 	editGender() {
-		if (this.isEdit()) return;
-		// if (this.customerBasicInfo.isGenderChangable) {
-		// 	this.onGenderEdit = true;
-		// 	this.gender = this.customerBasicInfo.gender;
-		// 	return;
-		// }
-		this.gender = this.customerBasicInfo.gender;
-		this.onGenderEdit = true;
-		// this._$ccTips.error('性别为领卡入会时设置，请前往忠诚度管理中编辑', this.TipsModal);
+		this.resetEditState();
+
+		this.gender.selected = this.customerBasicInfo.gender;
+		this.gender.isEditing = true;
 	}
 	handleGenderSave() {
-		this.genderLoading = true;
-		customerService.setCustomerInfo(this._uniId, {field: 'gender', value: this.gender}).then(res => {
+		this.gender.loading = true;
+		customerService.setCustomerInfo(this._uniId, {field: 'gender', value: this.gender.selected}).then(res => {
 			this.customerBasicInfo.gender = res.data;
-			this.gender = res.data;
+			this.gender.selected = res.data;
+
 			// 修改性别后重新更换头像
 			this.setAvatar(this.customerBasicInfo.gender);
-			this.onGenderEdit = false;
-			this.genderLoading = false;
+			this.gender.isEditing = false;
+			this.gender.loading = false;
 		}).catch(err => {
-			this.genderLoading = false;
+			this.gender.loading = false;
 			this._$ccTips.error(err.data.msg, this.TipsModal);
 		});
 	}
@@ -598,20 +590,14 @@ export default class customerViewCtrl {
 	 * 取消性别保存
 	 */
 	cancelGenderSave() {
-		this.onGenderEdit = false;
+		this.gender.isEditing = false;
 	}
 	/**
 	 * 编辑地址
 	 */
 	editStateAndCity() {
-		if (this.isEdit()) return;
-		// 判断是否可修改地址（暂时取消）
-		// if (this.customerBasicInfo.isAddressChangable) {
-		// 	this.onAddressEdit = true;
-		// 	return;
-		// }
+		this.resetEditState();
 		this.onAddressEdit = true;
-		// this._$ccTips.error('地址为领卡入会时设置，请前往忠诚度管理中编辑', this.TipsModal);
 	}
 	/**
 	 * 储存地址
@@ -637,10 +623,12 @@ export default class customerViewCtrl {
 	cancelAddressSave() {
 		this.onAddressEdit = false;
 	}
+
 	/**
 	 * 切换tab
+	 * @param key
 	 */
-	changeTab(index) {
-		this.index = index;
+	changeTab(key) {
+		this.nowLabel = key;
 	}
 }

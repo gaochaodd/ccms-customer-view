@@ -28,8 +28,8 @@ export default class OrderCtrl {
         };
         this.allPlat = [{'platCode': '', 'platName': '不限'}];
         this.currentPlat = '';
-        if (this.selectedPlatList.length !== 0) {
-            this.selectedPlatList.forEach(platCode => {
+        if (this.customerOwnedPlatList.length !== 0) {
+            this.customerOwnedPlatList.forEach(platCode => {
                 if (platCode === 'OMNI') return;
                 const platName = this.reformPlat(platCode).title;
                 this.allPlat.push({platCode, platName});

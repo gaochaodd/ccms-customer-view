@@ -8,8 +8,7 @@ module.exports = function (configurations) {
 		{
 			request: {
 				method: 'GET',
-				// '/data-manage-x/1.0/customer/:uniId'
-				urlPattern: /^\/data-manage-x\/1.0\/customer\/((?!interactive)\w)+/
+				urlPattern: /^\/data-manage-x\/1.0\/customer\/((?!interactive|shops|decrypt)\w)+/
 			},
 			response: {
 				status: 200,
@@ -41,7 +40,7 @@ module.exports = function (configurations) {
 						'genderSource': 'register',
 						'birthday': 19491001,
 						'birthdaySource	': 'defined',
-						'mobile': '130****0000',
+						'mobile': '150****0000',
 						'mobileSource': 'defined',
 						'mobileEffectiveness': 1,
 						'mobileMarkting': 1,
