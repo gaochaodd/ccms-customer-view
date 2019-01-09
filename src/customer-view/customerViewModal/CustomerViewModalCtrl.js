@@ -248,15 +248,15 @@ export default class customerViewCtrl {
 			this.avatarUrl = this.yuoZanAvatarUrl;
 			return;
 		}
-		if (gender === 'm') {
+		if (gender === 'm' || gender === 'M') {
 			this.defaultAvatarClass = 'maleAvatar';
 			return;
 		}
-		if (gender === 'f') {
+		if (gender === 'f' || gender === 'F') {
 			this.defaultAvatarClass = 'femaleAvatar';
 			return;
 		}
-		if (gender === 'w' || !gender) {
+		if (gender === 'w' || gender === 'W' || !gender) {
 			this.defaultAvatarClass = 'unknownAvatar';
 			return;
 		}
