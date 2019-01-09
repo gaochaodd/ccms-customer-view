@@ -5,9 +5,6 @@
 import { Inject } from 'angular-es-utils';
 
 import customerService from '../common/service';
-import maleAvatar from '../assets/img/male.png';
-import femaleAvatar from '../assets/img/female.png';
-import unknownAvatar from '../assets/img/unknown.png';
 
 import utils from '../common/utils';
 
@@ -252,15 +249,15 @@ export default class customerViewCtrl {
 			return;
 		}
 		if (gender === 'm') {
-			this.avatarUrl = maleAvatar;
+			this.defaultAvatarClass = 'maleAvatar';
 			return;
 		}
 		if (gender === 'f') {
-			this.avatarUrl = femaleAvatar;
+			this.defaultAvatarClass = 'femaleAvatar';
 			return;
 		}
 		if (gender === 'w' || !gender) {
-			this.avatarUrl = unknownAvatar;
+			this.defaultAvatarClass = 'unknownAvatar';
 			return;
 		}
 	}

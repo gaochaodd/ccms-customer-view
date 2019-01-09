@@ -34,6 +34,20 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		.customer-avatar-default-image-style{
+			display: block;
+			width: 100%;
+			height: 100%;
+			&.maleAvatar{
+				background-image: url("../assets/img/male.png");
+			}
+			&.femaleAvatar{
+				background-image: url("../assets/img/female.png");
+			}
+			&.unknownAvatar{
+				background-image: url("../assets/img/unknown.png");
+			}
+		}
 	}
 	.customer-info-block-style {
 		width: 970px;
