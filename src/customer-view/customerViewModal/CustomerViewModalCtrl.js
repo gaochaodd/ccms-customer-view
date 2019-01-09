@@ -295,8 +295,9 @@ export default class customerViewCtrl {
 	 * @param platCode
 	 */
 	reformPlat(platCode) {
-		return this.platConf.filter(item => item.value === platCode)[0].title;
+		return platCode ? this.platConf.filter(item => item.value === platCode)[0].title : '';
 	}
+
 	/**
 	 * 格式化平台数组
 	 * @param platStr 逗号隔开的platCode串

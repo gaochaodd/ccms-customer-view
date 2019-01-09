@@ -213,7 +213,7 @@ export default class OrderCtrl {
     }
 
     reformPlat(platCode) {
-        return this.platList.filter(item => item.value === platCode)[0];
+        return this.platList.filter(item => item.value === platCode)[0] || {};
     }
 
     /**
