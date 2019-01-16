@@ -4,7 +4,8 @@
 		<div ng-if="!vm.customerViewLoading">
 			<div class="customer-view-basic-info-style">
 				<div class="customer-avatar-style">
-					<img class="customer-avatar-image-style" ng-src="{{vm.avatarUrl}}" width="80px"/>
+					<img class="customer-avatar-image-style" ng-src="{{vm.avatarUrl}}" ng-if="vm.avatarUrl" width="80px"/>
+					<span class="customer-avatar-default-image-style{{vm.defaultAvatarClass ? ' '+ vm.defaultAvatarClass : ''}}" ng-if="!vm.avatarUrl"></span>
 				</div>
 				<div>
 					<ul class="customer-info-block-style">

@@ -1,4 +1,5 @@
 const path = require('path');
+const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
 const srcDir = path.join(__dirname, './src');
 module.exports = {
@@ -14,8 +15,26 @@ module.exports = {
 			loader: 'babel-loader'
 		}, {
 			test: /\.less/,
-            loader: "style-loader!css-loader!less-loader",
-			include: srcDir
+			include: srcDir,
+			use: ExtractTextWebpackPlugin.extract({
+				use: [{
+					loader: 'css-loader',
+					options: {
+						url: true, // 启用/禁用 url() 处理
+						minimize: true, // 启用/禁用 压缩
+						sourceMap: false // 启用/禁用 Sourcemaps
+					}
+				},
+					{
+						loader: 'resolve-url-loader'
+					},
+					{
+						loader: 'less-loader',
+						options: {
+							sourceMap: false // 启用/禁用 Sourcemaps
+						}
+					}]
+			})
 		}, {
             test: /\.html$/,
             use: [{
@@ -32,9 +51,9 @@ module.exports = {
             loaders: ['json-loader']
         }, {
 			test: /\.(jpe?g|png|gif|svg)$/i,
-			loaders: [
-				'url-loader'
-			]
+			use: [{
+				loader: 'file-loader?name=[path][name]-[hash:5].[ext]'
+			}]
 		}]
 	}
 };

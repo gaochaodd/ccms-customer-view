@@ -2,20 +2,16 @@
  * @author  chao
  * @date on 2018/11/07
  */
-import moment from 'moment';
 import { Inject } from 'angular-es-utils';
 
 import customerService from '../common/service';
-import maleAvatar from '../assets/img/male.png';
-import femaleAvatar from '../assets/img/female.png';
-import unknownAvatar from '../assets/img/unknown.png';
 
 import utils from '../common/utils';
 
 import { UNIFIFCATION_AREA_SELECTOR_DATA, GENDER_LIST, PLAT_LIST, TAB_LIST, CUSTOMER_PLAT_ID_LIST } from '../constants/index';
 
 
-@Inject('$ccModal', '$scope', '$ccTips', '$element', '$timeout', '$window', 'uniId')
+@Inject('$ccModal', '$scope', '$ccTips', '$element', '$timeout', '$window', '$filter', 'uniId')
 export default class customerViewCtrl {
 	constructor() {
 		// 提示弹窗
@@ -252,16 +248,16 @@ export default class customerViewCtrl {
 			this.avatarUrl = this.yuoZanAvatarUrl;
 			return;
 		}
-		if (gender === 'm') {
-			this.avatarUrl = maleAvatar;
+		if (gender === 'm' || gender === 'M') {
+			this.defaultAvatarClass = 'maleAvatar';
 			return;
 		}
-		if (gender === 'f') {
-			this.avatarUrl = femaleAvatar;
+		if (gender === 'f' || gender === 'F') {
+			this.defaultAvatarClass = 'femaleAvatar';
 			return;
 		}
-		if (gender === 'w' || !gender) {
-			this.avatarUrl = unknownAvatar;
+		if (gender === 'w' || gender === 'W' || !gender) {
+			this.defaultAvatarClass = 'unknownAvatar';
 			return;
 		}
 	}
@@ -283,23 +279,25 @@ export default class customerViewCtrl {
 	 */
 	reformBirthday(birthday) {
 		if (!birthday) return '--';
-		return moment(`${birthday}`).format('YYYY/MM/DD');
+		return utils.formatDateNumber(birthday, 'YYYY/mm/DD');
 	}
 	/**
 	 * 格式化年龄
-	 * @param birthday 参数格式'YYYYMMDD'
+	 * @param birthday
 	 */
 	reformAge(birthday) {
 		if (!birthday) return '--';
-		return `${moment().year() - moment(`${birthday}`).year()}岁`;
+		const year = utils.splitDateNumber(birthday).year;
+		return `${new Date().getFullYear() - year}岁`;
 	}
 	/**
 	 * 格式化平台
 	 * @param platCode
 	 */
 	reformPlat(platCode) {
-		return this.platConf.filter(item => item.value === platCode)[0].title;
+		return platCode ? this.platConf.filter(item => item.value === platCode)[0].title : '';
 	}
+
 	/**
 	 * 格式化平台数组
 	 * @param platStr 逗号隔开的platCode串
@@ -546,7 +544,7 @@ export default class customerViewCtrl {
 	}
 	handleBirthdaySave() {
 		this.birthdayLoading = true;
-		customerService.setCustomerInfo(this._uniId, {field: 'birthday', value: moment(this.birthday).format('YYYYMMDD')}).then(res => {
+		customerService.setCustomerInfo(this._uniId, {field: 'birthday', value: this._$filter('date')(this.birthday, 'yyyyMMdd')}).then(res => {
 			this.customerBasicInfo.birthday = this.reformBirthday(res.data);
 			this.customerBasicInfo.age = this.reformAge(res.data);
 			this.onBirthdayEdit = false;

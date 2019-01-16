@@ -14,6 +14,7 @@ function build() {
 	# create dist/index.js
 	cat > dist/index.js <<- EOT
 	require('./ccms-customer-view.js');
+	require('./ccms-customer-view.css');
 	module.exports = 'ccms.customerView';
 	EOT
 }

@@ -7,6 +7,7 @@ const { version } = require('./package.json');
 const srcDir = path.join(__dirname, './src');
 const buildOutputDir = path.join(__dirname, './dist/');
 const webpackCommon = require('./webpack-common.config.js');
+const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
 
 const production = () => ({
@@ -16,16 +17,26 @@ const production = () => ({
 	},
 	output: {
 		path: buildOutputDir,
-		filename: 'ccms-customer-view.js'
+		filename: 'ccms-customer-view.js',
+		libraryTarget: "umd"
 	},
-    externals: {
-        'angular': 'angular',
-        'angular-resource': 'ngResource',
-        'angular-ui-router': 'ui.router'
-    },
+    externals: ['angular', 'angular-resource', 'angular-ui-router', 'ccms-customer-view', 'ccms-customer-view/index.css'],
 	plugins: [
 		new CleanPlugin([buildOutputDir]),
-        new webpack.DefinePlugin({
+
+		// 将样式文件 抽取至独立文件内
+		new ExtractTextWebpackPlugin({
+			// 生成文件的文件名
+			filename: 'ccms-customer-view.css',
+
+			// 是否禁用插件
+			disable: false,
+
+			// 是否向所有额外的 chunk 提取（默认只提取初始加载模块）
+			allChunks: true
+		}),
+
+		new webpack.DefinePlugin({
             __DEVELOPMENT__: false
         }),
 		// 配置环境变量
