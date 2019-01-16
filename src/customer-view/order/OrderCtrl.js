@@ -82,7 +82,7 @@ export default class OrderCtrl {
 										</span>
 									</div>
 									<div style="margin-right: 40px">下单：<span style="display: inline-block; min-width: 110px">{{row.created || '--'}}</span></div>
-									<div style="margin-right: 40px">付款：<span style="display: inline-block; min-width: 110px">{{row.payTimeStr || '--'}}</span></div>
+									<div style="margin-right: 40px">付款：<span style="display: inline-block; min-width: 110px">{{row.payTime || '--'}}</span></div>
 									<div>交易状态：{{row.orderStatus}}</div>
 								</div>
 							</div>`;
