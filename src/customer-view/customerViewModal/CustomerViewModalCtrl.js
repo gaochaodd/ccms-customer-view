@@ -6,12 +6,12 @@ import { Inject } from 'angular-es-utils';
 
 import customerService from '../common/service';
 
-import utils from '../common/utils';
+import jeasy from 'jeasy';
 
 import { UNIFIFCATION_AREA_SELECTOR_DATA, GENDER_LIST, PLAT_LIST, TAB_LIST, CUSTOMER_PLAT_ID_LIST } from '../constants/index';
 
 
-@Inject('$ccModal', '$scope', '$ccTips', '$element', '$timeout', '$window', '$filter', 'uniId')
+@Inject('$ccModal', '$scope', '$ccTips', '$element', '$timeout', '$window', 'uniId')
 export default class customerViewCtrl {
 	constructor() {
 		// 提示弹窗
@@ -207,11 +207,11 @@ export default class customerViewCtrl {
             if (this.customerMarketingInfoFirstCol[key].type === 'platList') {
                 this.customerMarketingInfoFirstCol[key].value = this.reformPlatList(customerInfo[key]);
                 // 420为展示区最大宽度
-                this.customerMarketingInfoFirstCol[key].overWidth = utils.getWidth(this.customerMarketingInfoFirstCol[key].value) > 240;
+                this.customerMarketingInfoFirstCol[key].overWidth = jeasy.getTextWidth(this.customerMarketingInfoFirstCol[key].value) > 240;
             } else if (this.customerMarketingInfoFirstCol[key].type === 'shopList') {
                 this.customerMarketingInfoFirstCol[key].value = this.reformShopList(customerInfo[key]);
                 // 420为展示区最大宽度
-                this.customerMarketingInfoFirstCol[key].overWidth = utils.getWidth(this.customerMarketingInfoFirstCol[key].value) > 240;
+                this.customerMarketingInfoFirstCol[key].overWidth = jeasy.getTextWidth(this.customerMarketingInfoFirstCol[key].value) > 240;
             } else {
                 this.customerMarketingInfoFirstCol[key].value = customerInfo[key];
             }
@@ -232,7 +232,7 @@ export default class customerViewCtrl {
         }
         this.boughtPlatformList = [];
         // 666为展示区最大宽度
-        this.isAddressOverWidth = utils.getWidth(this.customerBasicInfo.address) > 666;
+        this.isAddressOverWidth = jeasy.getTextWidth(this.customerBasicInfo.address) > 666;
     }
 
 	/**
@@ -279,7 +279,7 @@ export default class customerViewCtrl {
 	 */
 	reformBirthday(birthday) {
 		if (!birthday) return '--';
-		return utils.formatDateNumber(birthday, 'YYYY/mm/DD');
+		return jeasy.moment(birthday).format('YYYY/mm/DD');
 	}
 	/**
 	 * 格式化年龄
@@ -287,8 +287,8 @@ export default class customerViewCtrl {
 	 */
 	reformAge(birthday) {
 		if (!birthday) return '--';
-		const year = utils.splitDateNumber(birthday).year;
-		return `${new Date().getFullYear() - year}岁`;
+		const year = jeasy.moment(birthday).fullYear;
+		return `${jeasy.moment().fullYear - year}岁`;
 	}
 	/**
 	 * 格式化平台
@@ -544,7 +544,7 @@ export default class customerViewCtrl {
 	}
 	handleBirthdaySave() {
 		this.birthdayLoading = true;
-		customerService.setCustomerInfo(this._uniId, {field: 'birthday', value: this._$filter('date')(this.birthday, 'yyyyMMdd')}).then(res => {
+		customerService.setCustomerInfo(this._uniId, {field: 'birthday', value: jeasy.moment(this.birthday).format('yyyyMMdd')}).then(res => {
 			this.customerBasicInfo.birthday = this.reformBirthday(res.data);
 			this.customerBasicInfo.age = this.reformAge(res.data);
 			this.onBirthdayEdit = false;

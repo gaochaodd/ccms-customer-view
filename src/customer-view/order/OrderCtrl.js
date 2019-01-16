@@ -6,9 +6,9 @@
 import { Inject } from 'angular-es-utils';
 import service from '../common/service';
 import {PLAT_LIST} from '../constants/index';
-import utils from '../common/utils'
+import jeasy from 'jeasy'
 
-@Inject('$scope', '$ccTips', '$element', '$filter', '$gridManager')
+@Inject('$scope', '$ccTips', '$element', '$gridManager')
 export default class OrderCtrl {
     constructor() {
         // 提示弹窗
@@ -221,7 +221,7 @@ export default class OrderCtrl {
      * @param productName 商品名称String
      */
     isProductNameOverWidth(productName) {
-        if ((utils.getWidth(productName) / 2) + 20 > 300) return productName;
+        if ((jeasy.getTextWidth(productName) / 2) + 20 > 300) return productName;
         return '';
     }
 }

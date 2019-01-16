@@ -8,9 +8,9 @@
 import {Inject} from 'angular-es-utils';
 import customerService from '../common/service';
 import {PLAT_LIST} from '../constants/index';
-import utils from '../common/utils';
+import jeasy from 'jeasy';
 
-@Inject('$scope', '$ccTips', '$element', '$filter', '$gridManager')
+@Inject('$scope', '$ccTips', '$element', '$gridManager')
 export default class EvaluationCtrl {
     constructor() {
         // 提示弹窗
@@ -68,7 +68,7 @@ export default class EvaluationCtrl {
             },
             topFullColumn: {
                 template: row => {
-                    row.createdStr = row.created ? this._$filter('date')(new Date(row.created), 'yyyy-MM-dd HH:mm:ss') : '--';
+                    row.createdStr = row.created ? jeasy.moment(row.created).format('yyyy-MM-dd HH:mm:ss') : '--';
 
                     return `<div class="main-evaluation-info-style">
 								<div class="main-evaluation-title-style">
@@ -103,7 +103,6 @@ export default class EvaluationCtrl {
 							</div>`,
                     align: 'left',
                     template: row => {
-                    	console.log('template');
                         return `<div ng-repeat="item in row.rates track by $index"
 									class="evaluation-gird-row-style">
 									<div class="evaluation-gird-first-col-style">
@@ -158,7 +157,7 @@ export default class EvaluationCtrl {
         }
     }
     reformTime(time) {
-        return time ? this._$filter('date')(new Date(time), 'yyyy-MM-dd HH:mm:ss') : '--';
+        return time ? jeasy.moment(time).format('yyyy-MM-dd HH:mm:ss') : '--';
     }
     onPlatChange() {
         const query = {
@@ -197,7 +196,7 @@ export default class EvaluationCtrl {
      * @param productName 商品名称String
      */
     isProductNameOverWidth(productName) {
-        if ((utils.getWidth(productName) / 2) + 20 > 300) return productName;
+        if ((jeasy.getTextWidth(productName) / 2) + 20 > 300) return productName;
         return '';
     }
 }
