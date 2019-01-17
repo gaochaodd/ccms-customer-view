@@ -6,7 +6,7 @@
 import {Bind} from 'angular-es-utils/decorators';
 import { Inject } from 'angular-es-utils';
 
-@Inject('$element', '$scope', '$ccTips')
+@Inject('$element', '$ccTips')
 export default class Copy{
 
 	// 设置触发方式

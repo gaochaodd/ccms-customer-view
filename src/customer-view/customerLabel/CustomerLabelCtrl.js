@@ -10,7 +10,7 @@ import service from '../common/service';
 import labelModal from './labelModal/labelModal.tpl.html';
 import labelModalFooter from './labelModal/labelModalFooter.tpl.html';
 import labelModalCtrl from './labelModal/LabelModalCtrl';
-import { PLAT_LIST } from '../constants/index';
+import { PLAT_MAP } from '../constants/index';
 
 @Inject('$scope', '$ccModal')
 export default class customerCardCtrl {
@@ -25,7 +25,6 @@ export default class customerCardCtrl {
 		this.cloudTag = []; // 初始化云标签
 		this.defineTag = []; // 初始化自定义标签
 		this.rfmList = []; // 初始化rfm标签
-		this.platForm = PLAT_LIST; // 已购买过店铺列表
 		this.selected = 0;
 		this.parentSelected = 0;
 		this.getTags();
@@ -61,15 +60,8 @@ export default class customerCardCtrl {
 	/**
 	 * 根据platCode获取为平台名称和平台图标
 	 */
-	getPlatInfo(platCode) {
-		const platName = this.platForm.filter(item => {
-			return item.value === platCode;
-		});
-		if (platCode === 'OFFLINE') {
-			// 线下平台无图标
-			return [platName[0].title];
-		}
-		return [platName[0].title, platName[0].icon];
+	getPlat(platCode) {
+		return PLAT_MAP[platCode] || {};
 	}
 
 	/**

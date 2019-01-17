@@ -5,10 +5,8 @@
  * @since 2018/11/13
  */
 
-import { Inject } from 'angular-es-utils';
 import { componentResource } from '../common/resource';
 
-@Inject('$scope')
 export default class PreferentialCtrl {
 	constructor() {
 		this.init();

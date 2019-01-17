@@ -9,7 +9,7 @@ import { Inject } from 'angular-es-utils';
 import { componentResource } from '../common/resource';
 import service from '../common/service';
 
-@Inject('$scope', '$timeout')
+@Inject('$timeout')
 export default class ReceiveAddressCtrl {
 	constructor() {
 		this.init();

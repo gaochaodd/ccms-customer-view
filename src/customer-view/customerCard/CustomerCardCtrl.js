@@ -9,9 +9,9 @@
 import {Inject} from 'angular-es-utils';
 import customerCardService from '../common/service';
 import { componentResource } from '../common/resource';
-import utils from '../common/utils';
+import jeasy from 'jeasy';
 
-@Inject('$scope', '$element', '$timeout', '$filter', '$gridManager')
+@Inject('$timeout', '$gridManager')
 export default class customerCardCtrl {
 	constructor() {
 		this.init();
@@ -136,7 +136,7 @@ export default class customerCardCtrl {
 	 * 转换时间格式
 	 */
 	formatDate(date) {
-		return this._$filter('date')(new Date(date), 'yyyy/MM/dd');
+		return jeasy.moment(date).format('yyyy/MM/dd');
 	}
 
 	/**
