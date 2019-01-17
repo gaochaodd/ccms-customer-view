@@ -11,7 +11,7 @@ import customerCardService from '../common/service';
 import { componentResource } from '../common/resource';
 import jeasy from 'jeasy';
 
-@Inject('$scope', '$element', '$timeout', '$gridManager')
+@Inject('$timeout', '$gridManager')
 export default class customerCardCtrl {
 	constructor() {
 		this.init();

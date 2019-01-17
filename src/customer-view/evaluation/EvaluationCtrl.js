@@ -7,15 +7,14 @@
 
 import {Inject} from 'angular-es-utils';
 import customerService from '../common/service';
-import {PLAT_LIST} from '../constants/index';
+import {PLAT_MAP} from '../constants/index';
 import jeasy from 'jeasy';
 
-@Inject('$scope', '$ccTips', '$element', '$gridManager')
+@Inject('$ccTips', '$element', '$gridManager')
 export default class EvaluationCtrl {
     constructor() {
         // 提示弹窗
         this.TipsModal = this._$element[0].querySelector('.modal-body');
-        this.platList = PLAT_LIST;
         this.init();
     }
 
@@ -143,7 +142,7 @@ export default class EvaluationCtrl {
         };
     }
     reformPlat(platCode) {
-        return this.platList.filter(item => item.value === platCode)[0];
+        return PLAT_MAP[platCode] || {};
     }
     reformRate(estimateReplay) {
         if (estimateReplay === 'good') {

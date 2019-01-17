@@ -8,18 +8,15 @@ import customerService from '../common/service';
 
 import jeasy from 'jeasy';
 
-import { UNIFIFCATION_AREA_SELECTOR_DATA, GENDER_LIST, PLAT_LIST, TAB_LIST, CUSTOMER_PLAT_ID_LIST } from '../constants/index';
+import { UNIFIFCATION_AREA_SELECTOR_DATA, GENDER_LIST, PLAT_MAP, TAB_LIST, CUSTOMER_PLAT_ID_LIST } from '../constants/index';
 
 
-@Inject('$ccModal', '$scope', '$ccTips', '$element', '$timeout', '$window', 'uniId')
+@Inject('$ccTips', '$element', '$timeout', '$window', 'uniId')
 export default class customerViewCtrl {
 	constructor() {
 		// 提示弹窗
 		this.TipsModal = this._$element[0].querySelector('.modal-body');
-		// 性别
-		this.customerSexConf = GENDER_LIST;
 
-		this.platConf = PLAT_LIST;
 		this.init();
 		this.initData();
 	}
@@ -69,7 +66,6 @@ export default class customerViewCtrl {
 		this.customerOwnedPlatList = [];
 		this.selectedArea = {};
 		this.onMobileCheck = this.onEmailCheck = true;
-		this.prepareEditFullName = false;
 		this.customerMarketingInfoFirstCol = {
 			boughtPlatform: {title: '购买过的平台', type: 'platList'},
 			boughtShopName: {title: '购买过的店铺', type: 'shopList'},
@@ -218,14 +214,14 @@ export default class customerViewCtrl {
         }
         for (const key in this.customerMarketingInfoSecondCol) {
             if (this.customerMarketingInfoSecondCol[key].type === 'plat') {
-                this.customerMarketingInfoSecondCol[key].value = this.reformPlat(customerInfo[key]);
+                this.customerMarketingInfoSecondCol[key].value = this.reformPlat(customerInfo[key]).title || '';
             } else {
                 this.customerMarketingInfoSecondCol[key].value = customerInfo[key];
             }
         }
         for (const key in this.customerMarketingInfoThirdCol) {
             if (this.customerMarketingInfoThirdCol[key].type === 'plat') {
-                this.customerMarketingInfoThirdCol[key].value = this.reformPlat(customerInfo[key]);
+                this.customerMarketingInfoThirdCol[key].value = this.reformPlat(customerInfo[key]).title || '';
             } else {
                 this.customerMarketingInfoThirdCol[key].value = customerInfo[key];
             }
@@ -295,7 +291,7 @@ export default class customerViewCtrl {
 	 * @param platCode
 	 */
 	reformPlat(platCode) {
-		return platCode ? this.platConf.filter(item => item.value === platCode)[0].title : '';
+		return PLAT_MAP[platCode] || {};
 	}
 
 	/**
@@ -309,7 +305,7 @@ export default class customerViewCtrl {
 		}
 		const boughtPlatformList = [];
 		platStr.split(',').forEach(platCode => {
-			boughtPlatformList.push(this.reformPlat(platCode));
+			boughtPlatformList.push(this.reformPlat(platCode).title || '');
 		});
 		return boughtPlatformList.join('、');
 	}
@@ -490,7 +486,6 @@ export default class customerViewCtrl {
 	 */
 	editEmail() {
 		this.resetEditState();
-
 
 		this.onEmailEdit = true;
 		customerService.getDecryptCustomerInfo(this._uniId, 'email').then(res => {

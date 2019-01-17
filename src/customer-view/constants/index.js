@@ -1,53 +1,52 @@
-
-// 平台列表
-export const PLAT_LIST = [
-	{
+// 平台 MAP
+export const PLAT_MAP = {
+	'TAOBAO':{
 		title: '淘宝',
 		value: 'TAOBAO',
 		icon: '#icon-cl-tb'
 	},
-	{
+	'JOS': {
 		title: '京东',
 		value: 'JOS',
 		icon: '#icon-cl-jd'
 	},
-	{
+	'YHD': {
 		title: '一号店',
 		value: 'YHD',
 		icon: '#icon-cl-yhd'
 	},
-	{
+	'SUNING': {
 		title: '苏宁',
 		value: 'SUNING',
 		icon: '#icon-cl-sn'
 	},
-	{
+	'MGJ': {
 		title: '美丽说',
 		value: 'MGJ'
 	},
-	{
+	'YOUZAN': {
 		title: '有赞',
 		value: 'YOUZAN'
 	},
-	{
+	'OFFLINE': {
 		title: '线下',
 		value: 'OFFLINE'
 	},
-	{
+	'DD': {
 		title: '当当',
 		value: 'DD',
 		icon: '#icon-cl-dd'
 	},
-	{
+	'WX': {
 		title: '微信',
 		value: 'WX',
 		icon: '#icon-cl-wx'
 	},
-	{
+	'OMNI': {
 		title: '全渠道',
 		value: 'OMNI'
 	}
-];
+};
 
 // 客户平台ID列表
 export const CUSTOMER_PLAT_ID_LIST = [

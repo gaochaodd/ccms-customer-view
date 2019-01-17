@@ -27,9 +27,9 @@
 					<span class="shop-icon">
 						<svg style="fill: currentColor;width: 14px;height: 14px"
 							 aria-hidden="true">
-                      		<use xlink:href="{{vm.getPlatInfo(item.platCode)[1]}}"></use>
+                      		<use xlink:href="{{vm.getPlat(item.platCode).icon}}"></use>
                 		</svg>
-						<span class="shop-type" ng-bind="vm.getPlatInfo(item.platCode)[0]"></span>
+						<span class="shop-type" ng-bind="vm.getPlat(item.platCode).title"></span>
 					</span>
 					<span class="choose-shop-label">选择店铺：</span>
 					<ul class="shop-list" ng-if="item.platCode !== 'OFFLINE'">
