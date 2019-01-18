@@ -46,7 +46,6 @@ export default class customerViewCtrl {
 		};
 
 		let editGenderList = GENDER_LIST.slice(0, 2);
-		console.log(editGenderList);
 		// 性别
 		this.gender = {
 			selected: '',

@@ -24,7 +24,8 @@ export default class customerCardCtrl {
 		// 等级记录和积分选中，默认选中等级变更记录
 		this.selectedGrade = true;
 
-		this.loadingComplete = false;
+		// 默认会员配置（普通用户不显示会员卡以及变更列表）
+		this.isMember = true;
 		// 获取会员卡信息
 		this.getCustomerCardInfo();
 		// 默认显示第一张卡片
@@ -120,6 +121,12 @@ export default class customerCardCtrl {
 		customerCardService.getCustomerCardInfo(this.uniId).then(res => {
 			if (!res.length) {
 				this.showLoading = false;
+				return;
+			}
+			// 只有一张会员卡且等级为0则不是会员
+			if (res.length === 1 && res[0].grade === '0') {
+				this.showLoading = false;
+				this.isMember = false;
 				return;
 			}
 			this.customerCardInfo = res;

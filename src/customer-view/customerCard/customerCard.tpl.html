@@ -1,6 +1,6 @@
 <div class="customer-card-container">
 	<cc-loading class="loading-area" ng-if="vm.showLoading"></cc-loading>
-	<ul class="customer-card-info" ng-show="vm.customerCardInfo.length && !vm.showLoading">
+	<ul class="customer-card-info" ng-show="vm.customerCardInfo.length && !vm.showLoading && vm.isMember">
 		<li ng-repeat="item in vm.customerCardInfo track by $index" ng-show="vm.isShowIndex === $index">
 			<div class="card-area">
 				<div class="chang-card"
@@ -62,7 +62,7 @@
 		</li>
 	</ul>
 
-	<div class="grid-container" ng-show="vm.customerCardInfo.length && !vm.showLoading">
+	<div class="grid-container" ng-show="vm.customerCardInfo.length && !vm.showLoading && vm.isMember">
 		<div class="grid-container-title">
 			<span class="select-grade" ng-class="{grade: !vm.selectedGrade, integral: vm.selectedGrade}" ng-click="vm.viewChangeRecord('point')">积分变更记录</span><span class="select-point" ng-class="{grade: vm.selectedGrade, integral: !vm.selectedGrade}" ng-click="vm.viewChangeRecord('grade')">等级变更记录 </span>
 		</div>
@@ -72,7 +72,7 @@
 		</div>
 	</div>
 
-	<div class="customer-card-info" ng-if="!vm.customerCardInfo.length && !vm.showLoading">
+	<div class="customer-card-info" ng-show="!vm.customerCardInfo.length && !vm.showLoading && !vm.isMember">
 		<div class="empty-area">
 			<span class="iconfont icon-caution warning"></span>
 			<span class="warning-label">当前客户未领取任何会员卡</span>
