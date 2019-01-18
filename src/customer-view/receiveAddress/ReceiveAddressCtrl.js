@@ -87,11 +87,7 @@ export default class ReceiveAddressCtrl {
 		this.getDecrypt = (field, row) => {
 			service.getReceiveAddressDecryptMessage(this.uniId, row.uuId, field).then(res => {
 				row[field] = res.data;
-				if (field === 'mobile') {
-					this.showMobile = false;
-				} else {
-					this.showName = false;
-				}
+				field === 'mobile' ? this.showMobile = false : this.showName = false;
 			}).catch(err => {
 				console.error(err.message);
 			});
