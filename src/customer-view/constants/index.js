@@ -65,11 +65,11 @@ export const CUSTOMER_PLAT_ID_LIST = [
 export const GENDER_LIST = [
 	{
 		title: '男',
-		value: 'm'
+		value: 'M'
 	},
 	{
 		title: '女',
-		value: 'f'
+		value: 'F'
 	},
 	{
 		title: '未知',

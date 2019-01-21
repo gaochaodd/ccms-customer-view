@@ -36,7 +36,7 @@ module.exports = function (configurations) {
 						],
 						'fullName': '测*',
 						'fullNameSource': 'commonleUsed',
-						'gender': 'm',
+						'gender': '',
 						'genderSource': 'register',
 						'birthday': 19491001,
 						'birthdaySource	': 'defined',

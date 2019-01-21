@@ -45,6 +45,7 @@ export default class customerViewCtrl {
 			isEditing: false
 		};
 
+		let editGenderList = GENDER_LIST.slice(0, 2);
 		// 性别
 		this.gender = {
 			selected: '',
@@ -55,7 +56,7 @@ export default class customerViewCtrl {
 			list: GENDER_LIST,
 
 			// 编辑时使用的列表，该列表不包含未知性别
-			listForEditing: GENDER_LIST.splice(0, 2),
+			listForEditing: editGenderList,
 			fieldsMap: {
 				valueField: 'value',
 				displayField: 'title'
@@ -260,13 +261,17 @@ export default class customerViewCtrl {
 
 	/**
 	 * 格式化性别
-	 * @param gender 性别参数: 'f', 'm', 'w'
+	 * @param gender 性别参数: 'F', 'M', 'w', ''
 	 */
 	reformGender(gender) {
-		const genderList = this.gender.list.filter(item => item.value === gender);
+		if (!gender) {
+			return '未知';
+		}
+		const genderList = GENDER_LIST.filter(item => item.value === gender);
 		if (genderList.length === 0) {
 			return '--';
 		}
+
 		return genderList[0].title;
 	}
 	/**
