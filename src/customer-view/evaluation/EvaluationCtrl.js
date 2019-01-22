@@ -123,7 +123,9 @@ export default class EvaluationCtrl {
 											<span class="evaluation-gird-rate-time-style">
 												评价时间: {{vm.reformTime(item.estimateTime)}}
 											</span>
-											<i class="iconfont {{vm.reformRate(item.estimateResult)}}"></i>
+											<icon-good-review ng-if="item.estimateResult === 'good'"></icon-good-review>
+											<icon-medium-review ng-if="item.estimateResult === 'neutral'"></icon-medium-review>
+											<icon-poor-review ng-if="item.estimateResult === 'bad'"></icon-poor-review>
 										</div>	
 										<div
 										class="color:#3D3D3D;">
@@ -144,17 +146,7 @@ export default class EvaluationCtrl {
     reformPlat(platCode) {
         return PLAT_MAP[platCode] || {};
     }
-    reformRate(estimateReplay) {
-        if (estimateReplay === 'good') {
-            return 'icon-good-review';
-        }
-        if (estimateReplay === 'neutral') {
-            return 'icon-medium-review';
-        }
-        if (estimateReplay === 'bad') {
-            return 'icon-poor-review';
-        }
-    }
+
     reformTime(time) {
         return time ? jeasy.moment(time).format('yyyy-MM-dd HH:mm:ss') : '--';
     }

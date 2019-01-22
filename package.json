@@ -56,7 +56,8 @@
         "angular-ui-router": "0.2.18",
         "angular-utils": "^0.2.4",
         "ccms-components": "2.37.6-0",
-        "ccms-svg-icons": "0.0.8",
+        "ccms-icons": "0.0.8",
+        "ccms-svg-icons": "0.0.11",
         "gridmanager-angular-1.x": "^0.1.8",
         "gridmanager-ccms-skin": "^0.1.2",
         "jeasy": "0.0.5"

@@ -4,7 +4,6 @@
  */
 
 import angular from 'angular';
-import './assets/iconfont.less';
 import iconList from './assets/iconfont';
 import template from './customer_view.tpl.html';
 import controller from './CustomerViewCtrl';

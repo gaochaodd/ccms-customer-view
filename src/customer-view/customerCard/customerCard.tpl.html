@@ -6,7 +6,7 @@
 				<div class="chang-card"
 					 ng-class="{showChangeBtn: vm.customerCardInfo.length !== 1, hideChangeBtn: vm.customerCardInfo.length === 1}"
 					 ng-click="vm.changeCard('left', $index)">
-					<i class="iconfont icon-jiantouzuo"></i>
+					<icon-jiantouzuo></icon-jiantouzuo>
 				</div>
 				<div class="card" ng-class="{fromLeft: vm.cardFromLeft, fromRight: !vm.cardFromLeft, vip1: item.grade === '1', vip2: item.grade === '2', vip3: item.grade === '3', vip4: item.grade === '4', vip5: item.grade === '5', vip6: item.grade === '6', vip7: item.grade === '7'}">
 					<header>
@@ -21,7 +21,7 @@
 				<div class="chang-card"
 					 ng-class="{showChangeBtn: vm.customerCardInfo.length !== 1, hideChangeBtn: vm.customerCardInfo.length === 1}"
 					 ng-click="vm.changeCard('right', $index)">
-					<i class="iconfont icon-jiantouyou"></i>
+					<icon-jiantouyou></icon-jiantouyou>
 				</div>
 				<div class="card-page">
 					<span ng-bind="$index + 1"></span>
@@ -74,7 +74,7 @@
 
 	<div class="customer-card-info" ng-show="!vm.customerCardInfo.length && !vm.showLoading && !vm.isMember">
 		<div class="empty-area">
-			<span class="iconfont icon-caution warning"></span>
+			<icon-caution class="warning"></icon-caution>
 			<span class="warning-label">当前客户未领取任何会员卡</span>
 		</div>
 	</div>

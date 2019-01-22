@@ -14,9 +14,12 @@
 				<!--todo 如果客户有自定义标签，但是当前客户没有被打上任何标签，自定义标签区域不显示-->
 				<a class="no-define-tag" href="" ng-if="!vm.defineTag">您还没有创建任何标签，马上创建吧！(链接到客户标签管理-自定义标签页)</a>
 				<li ng-mouseenter="vm.editLabel('show', $index)" ng-mouseleave="vm.editLabel('hide', $index)" class="define-tag" ng-repeat="tag in vm.defineTag">
-					<span>{{tag.tagName}}:{{tag.tagValue}}<i ng-if="vm.prepareEdit === $index" class="iconfont icon-edit" ng-click="vm.openDefineTagModal('edit', tag)"></i></span>
+					<span>
+						{{tag.tagName}}:{{tag.tagValue}}
+						<icon-edit ng-if="vm.prepareEdit === $index" ng-click="vm.openDefineTagModal('edit', tag)"></icon-edit>
+					</span>
 				</li>
-				<li class="add-tag" ng-click="vm.openDefineTagModal('add', null)"><i class="iconfont icon-add"></i>新增标签</li>
+				<li class="add-tag" ng-click="vm.openDefineTagModal('add', null)"><icon-add></icon-add>新增标签</li>
 			</ul>
 		</div>
 	</div>

@@ -27,13 +27,13 @@ export default class ReceiveAddressCtrl {
 				text: '收货人姓名',
 				key: 'fullName',
 				align: 'left',
-				template: '<span ng-mouseover="vm.showNameEye = true" ng-mouseleave="vm.showNameEye = false">{{row.fullName}} <i ng-if="index === vm.selectedIndex && vm.showNameEye" class="iconfont icon-eye" ng-click="vm.getDecrypt(\'fullName\', row)"></i></span>'
+				template: '<span ng-mouseover="vm.showNameEye = true" ng-mouseleave="vm.showNameEye = false">{{row.fullName}} <icon-eye ng-if="index === vm.selectedIndex && vm.showNameEye" ng-click="vm.getDecrypt(\'fullName\', row)"></icon-eye></span>'
 			},
 			{
 				text: '收货人手机',
 				align: 'left',
 				key: 'mobile',
-				template: '<span ng-mouseover="vm.showMobileEye = true" ng-mouseleave="vm.showMobileEye = false">{{row.mobile}} <i ng-show="index === vm.selectedIndex && vm.showMobileEye" class="iconfont icon-eye" ng-click="vm.getDecrypt(\'mobile\', row)"></i></span>'
+				template: '<span ng-mouseover="vm.showMobileEye = true" ng-mouseleave="vm.showMobileEye = false">{{row.mobile}} <icon-eye ng-show="index === vm.selectedIndex && vm.showMobileEye" ng-click="vm.getDecrypt(\'mobile\', row)"></icon-eye></span>'
 			},
 			{
 				text: '省份',
