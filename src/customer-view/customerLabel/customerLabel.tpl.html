@@ -32,6 +32,12 @@
 							 aria-hidden="true">
                       		<use xlink:href="{{vm.getPlat(item.platCode).icon}}"></use>
                 		</svg>
+						<icon-cl-tb ng-if="vm.getPlat(item.platCode).value === 'TAOBAO'"></icon-cl-tb>
+						<icon-cl-jd ng-if="vm.getPlat(item.platCode).value === 'JOS'"></icon-cl-jd>
+						<icon-cl-yhd ng-if="vm.getPlat(item.platCode).value === 'YHD'"></icon-cl-yhd>
+						<icon-cl-sn ng-if="vm.getPlat(item.platCode).value === 'SUNING'"></icon-cl-sn>
+						<icon-cl-dd ng-if="vm.getPlat(item.platCode).value === 'DD'"></icon-cl-dd>
+						<icon-cl-wx ng-if="vm.getPlat(item.platCode).value === 'WX'"></icon-cl-wx>
 						<span class="shop-type" ng-bind="vm.getPlat(item.platCode).title"></span>
 					</span>
 					<span class="choose-shop-label">选择店铺：</span>

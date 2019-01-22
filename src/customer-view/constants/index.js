@@ -2,23 +2,19 @@
 export const PLAT_MAP = {
 	'TAOBAO':{
 		title: '淘宝',
-		value: 'TAOBAO',
-		icon: '#icon-cl-tb'
+		value: 'TAOBAO'
 	},
 	'JOS': {
 		title: '京东',
-		value: 'JOS',
-		icon: '#icon-cl-jd'
+		value: 'JOS'
 	},
 	'YHD': {
 		title: '一号店',
-		value: 'YHD',
-		icon: '#icon-cl-yhd'
+		value: 'YHD'
 	},
 	'SUNING': {
 		title: '苏宁',
-		value: 'SUNING',
-		icon: '#icon-cl-sn'
+		value: 'SUNING'
 	},
 	'MGJ': {
 		title: '美丽说',
@@ -34,13 +30,11 @@ export const PLAT_MAP = {
 	},
 	'DD': {
 		title: '当当',
-		value: 'DD',
-		icon: '#icon-cl-dd'
+		value: 'DD'
 	},
 	'WX': {
 		title: '微信',
-		value: 'WX',
-		icon: '#icon-cl-wx'
+		value: 'WX'
 	},
 	'OMNI': {
 		title: '全渠道',
