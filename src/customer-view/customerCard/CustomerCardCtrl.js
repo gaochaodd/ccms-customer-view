@@ -45,12 +45,12 @@ export default class customerCardCtrl {
 				align: 'left'
 			},
 			{
-				key: 'gradeBeforeChange',
+				key: 'gradeNameBeforeChange',
 				text: '变更前等级',
 				align: 'right'
 			},
 			{
-				key: 'gradeAfterChange',
+				key: 'gradeNameAfterChange',
 				text: '变更后等级',
 				align: 'right'
 
