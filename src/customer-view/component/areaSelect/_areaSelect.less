@@ -1,28 +1,38 @@
 .area-select-style {
     display: flex;
+	height: 26px;
+	line-height: 24px;
     .dropdown-select{
         width: 75px;
         // height: 26px;
         margin-right: 5px;
     }
     .dropdown-select .dropdown-select-input-wrap .dropdown-select-input {
-        height: 25px;
+		height: 24px;
+		line-height: 24px;
     }
     .dropdown-select .dropdown-select-input-wrap .dropdown-select-clear, .dropdown-select .dropdown-select-input-wrap .dropdown-select-down{
         line-height: 22px;
     }
-    .icon-able{
-        display: flex;
-        align-items: center;
-        color: #52C41A;
-    }
-    .icon-close{
-        display: flex;
-        align-items: center;
-        color: fade(#000000, 45%);
-    }
+	.prepare-edit {
+		>* {
+			display: flex;
+			align-items: center;
+			margin-left: 10px;
+			cursor: pointer;
+			&:hover {
+				fill: #0083BA;
+			}
+			&icon-finish {
+				fill: #52C41A;
+			}
+			&icon-close {
+				fill: fade(#000, 45%);
+			}
+		}
+	}
     .detail-address-style{
-        height: 27px;
+        height: 26px;
         width: 346px;
     }
 }

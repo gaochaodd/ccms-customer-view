@@ -9,9 +9,9 @@
 import {Inject} from 'angular-es-utils';
 import customerCardService from '../common/service';
 import { componentResource } from '../common/resource';
-import utils from '../common/utils';
+import jeasy from 'jeasy';
 
-@Inject('$scope', '$element', '$timeout', '$filter', '$gridManager')
+@Inject('$timeout', '$gridManager')
 export default class customerCardCtrl {
 	constructor() {
 		this.init();
@@ -24,7 +24,8 @@ export default class customerCardCtrl {
 		// 等级记录和积分选中，默认选中等级变更记录
 		this.selectedGrade = true;
 
-		this.loadingComplete = false;
+		// 默认会员配置（普通用户不显示会员卡以及变更列表）
+		this.isMember = true;
 		// 获取会员卡信息
 		this.getCustomerCardInfo();
 		// 默认显示第一张卡片
@@ -44,12 +45,12 @@ export default class customerCardCtrl {
 				align: 'left'
 			},
 			{
-				key: 'gradeBeforeChange',
+				key: 'gradeNameBeforeChange',
 				text: '变更前等级',
 				align: 'right'
 			},
 			{
-				key: 'gradeAfterChange',
+				key: 'gradeNameAfterChange',
 				text: '变更后等级',
 				align: 'right'
 
@@ -122,6 +123,12 @@ export default class customerCardCtrl {
 				this.showLoading = false;
 				return;
 			}
+			// 只有一张会员卡且等级为0则不是会员
+			if (res.length === 1 && res[0].grade === '0') {
+				this.showLoading = false;
+				this.isMember = false;
+				return;
+			}
 			this.customerCardInfo = res;
 			this.cardPlanId = this.customerCardInfo[0].cardPlanId;
 			this.viewChangeRecord('point');
@@ -136,7 +143,7 @@ export default class customerCardCtrl {
 	 * 转换时间格式
 	 */
 	formatDate(date) {
-		return this._$filter('date')(new Date(date), 'yyyy/MM/dd');
+		return jeasy.moment(date).format('yyyy/MM/dd');
 	}
 
 	/**

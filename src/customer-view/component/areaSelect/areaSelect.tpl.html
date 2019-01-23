@@ -37,6 +37,8 @@
 		ng-model="vm.detailAddress"
 		ng-keyup="vm.handleDetailAddressEdit($event)"
 	/>
-	<i class="iconfont icon-finish" ng-click="vm.handleSaveArea()"></i>
-	<i class="iconfont icon-close" ng-click="vm.handleCancelArea()"></i>
+	<span class="prepare-edit">
+		<icon-finish ng-click="vm.handleSaveArea()"></icon-finish>
+		<icon-close ng-click="vm.handleCancelArea()"></icon-close>
+	</span>
 </div>

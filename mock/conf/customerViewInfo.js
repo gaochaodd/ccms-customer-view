@@ -8,7 +8,7 @@ module.exports = function (configurations) {
 		{
 			request: {
 				method: 'GET',
-				urlPattern: /^\/data-manage-x\/1.0\/customer\/((?!interactive|shops|decrypt)\w)+/
+				urlPattern: /^\/data-manage-x\/1.0\/customer\/((?!interactive|shops|decrypt|uniId\/receiver\/address)\w)+/
 			},
 			response: {
 				status: 200,
@@ -36,7 +36,7 @@ module.exports = function (configurations) {
 						],
 						'fullName': '测*',
 						'fullNameSource': 'commonleUsed',
-						'gender': 'm',
+						'gender': '',
 						'genderSource': 'register',
 						'birthday': 19491001,
 						'birthdaySource	': 'defined',

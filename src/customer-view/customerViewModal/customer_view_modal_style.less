@@ -8,8 +8,10 @@
 }
 .customer-view-modal-style {
 	display: flex;
-	height: 100%;
+	height: 500px;
+	min-height: 500px;
 	flex-direction: column;
+	color: #3d3d3d;
 	.date-picker .date-picker-clear{
 		display: none;
 	}
@@ -25,15 +27,16 @@
 		width: 1070px;
 	}
 	.customer-avatar-style {
-		border-radius: 4px;
-		margin: 26px 20px 26px 0;
-		border: 1px solid #E4E4E4;
-		height: 80px;
-		width: 80px;
-		overflow: hidden;
 		display: flex;
+		width: 80px;
+		height: 80px;
+		margin: 26px 20px 26px 0;
+		padding: 1px;
+		border: 1px solid #E4E4E4;
+		overflow: hidden;
 		justify-content: center;
 		align-items: center;
+		border-radius: 4px;
 		.customer-avatar-default-image-style{
 			display: block;
 			width: 100%;
@@ -72,34 +75,65 @@
 		align-items: center;
 		flex-wrap: wrap;
 		border-top: 1px dashed #DADADA;
+		cc-loading section .loader .circular{
+			height: 40%;
+		}
+		.prepare-edit {
+			display: flex;
+			align-items: center;
+			line-height: 26px;
+			>* {
+				display: flex;
+				align-items: center;
+				margin-left: 10px;
+				cursor: pointer;
+				fill: rgba(0,0,0,.45);
+				&:hover {
+					fill: #0083BA;
+				}
+				&icon-finish {
+					fill: #52C41A;
+				}
+				&icon-close {
+					fill: fade(#000, 45%);
+				}
+			}
+		}
 		.customer-attr-info-block-detail-style {
 			display: flex;
 			width: 20%;
+			height: 34px;
+			line-height: 26px;
+			padding: 4px 0;
 			align-items: center;
-			height: 26px;
 			.customer-attr-info-block-input-style {
-				height: 26px;
 				width: 100px;
+				height: 26px;
+				.date-picker {
+					line-height: 26px;
+				}
+				.date-picker .date-picker-input{
+					height: 26px;
+				}
 			}
-			i {
-				margin-left: 10px;
-				font-size: 11px;
-				cursor: pointer;
-			}
-			i:hover {
-				color: #0083BA;
+			.normal-attr-info-style{
+				display: flex;
 			}
 		}
 		.address-style {
 			display: flex;
 			align-items: center;
 			height: 26px;
+			line-height: 26px;
 			max-width: 80%;
 			.customer-attr-area-style{
 				white-space: nowrap;
 				overflow: hidden;
 				text-overflow: ellipsis;
 				max-width: 666px;
+			}
+			.normal-attr-info-style{
+				display: flex;
 			}
 		}
 	}
@@ -186,113 +220,4 @@
 			}
 		}
 	}
-}
-
-.customer-view-modal-style{
-    display: flex;
-	height: 500px;
-	min-height: 500px;
-	flex-direction: column;
-	color: #3d3d3d;
-	.iconfont{
-		color: fade(#000000, 45%);
-	}
-	.icon-finish{
-		display: flex;
-		align-items: center;
-		color: #52C41A;
-	}
-	.icon-close{
-		display: flex;
-		align-items: center;
-	}
-    .customer-view-basic-info-style{
-        display: flex;
-        width: 1070px;
-    }
-    .customer-avatar-style{
-        border-radius:4px;
-        margin: 26px 20px 26px 0;
-        padding: 1px;
-        border: 1px solid #E4E4E4;
-        height: 80px;
-        width: 80px;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .customer-info-block-style{
-        width: 970px;
-        height: 68px;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        flex-wrap: wrap;
-        li{
-            width: 20%;
-        }
-        .customer-info-copyable-style{
-            cursor: pointer;
-        }
-    }
-    .customer-attr-info-block-style{
-        width: 970px;
-        height: 68px;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        flex-wrap: wrap;
-        border-top: 1px dashed #DADADA;
-        cc-loading section .loader .circular{
-            height: 40%;
-        }
-        .customer-attr-info-block-input-style{
-                height: 26px;
-                width: 130px;
-                .date-picker {
-                    line-height: 26px;
-                }
-                .date-picker .date-picker-input{
-                    height: 26px;
-                }
-            }
-        .customer-attr-info-block-detail-style{
-            display: flex;
-            width: 20%;
-            align-items: center;
-            height: 26px;
-            .normal-attr-info-style{
-                display: flex;
-            }
-            i{
-                margin-left: 10px;
-                font-size: 11px;
-                cursor: pointer;
-            }
-            i:hover{
-                color: #0083BA;
-            }
-        }
-        .address-style{
-            display: flex;
-            align-items: center;
-            height: 26px;
-			max-width: 80%;
-			.normal-attr-info-style{
-                display: flex;
-            }
-            i{
-                margin-left: 10px;
-                font-size: 11px;
-                cursor: pointer;
-            }
-            i:hover{
-                color: #0083BA;
-            }
-        }
-    }
-    .customer-attr-info-block-style:hover{
-        background:rgba(238,248,252,1);
-    }
 }

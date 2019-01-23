@@ -40,28 +40,23 @@
 							ng-if="vm.customerName.isEditing"
 							ng-model="vm.customerBasicInfo.fullName"
 							ng-keyup="vm.handleFullNameEdit($event)"/>
-							<span>
-								<i
-								ng-if="vm.prepareEdit && !vm.customerName.isEditing"
-								class="iconfont icon-edit1"
-								ng-click="vm.editFullName()"></i>
-								<i
-								ng-if="vm.prepareEdit && vm.customerName.displayFullName && !vm.customerName.isEditing && vm.customerBasicInfo.fullName"
-								class="iconfont icon-icon_yulan"
-								ng-click="vm.checkFullName()"></i>
-								<i
-								ng-if="vm.prepareEdit && !vm.customerName.displayFullName && !vm.customerName.isEditing && vm.customerBasicInfo.fullName"
-								class="iconfont icon-miwen"
-								ng-click="vm.checkFullName()"></i>
+							<span class="prepare-edit">
+								<icon-edit1
+									ng-if="vm.prepareEdit && !vm.customerName.isEditing"
+									ng-click="vm.editFullName()"></icon-edit1>
+								<icon-icon-yulan
+									ng-if="vm.prepareEdit && vm.customerName.displayFullName && !vm.customerName.isEditing && vm.customerBasicInfo.fullName"
+									ng-click="vm.checkFullName()"></icon-icon-yulan>
+								<icon-miwen
+									ng-if="vm.prepareEdit && !vm.customerName.displayFullName && !vm.customerName.isEditing && vm.customerBasicInfo.fullName"
+									ng-click="vm.checkFullName()"></icon-miwen>
+								<icon-finish
+									ng-if="vm.customerName.isEditing"
+									ng-click="vm.handleFullNameSave()"></icon-finish>
+								<icon-close
+									ng-if="vm.customerName.isEditing"
+									ng-click="vm.cancelFullNameSave()"></icon-close>
 							</span>
-							<i
-							ng-if="vm.customerName.isEditing"
-							class="iconfont icon-finish"
-							ng-click="vm.handleFullNameSave()"></i>
-							<i
-							ng-if="vm.customerName.isEditing"
-							class="iconfont icon-close"
-							ng-click="vm.cancelFullNameSave()"></i>
 						</div>
 						</li>
 						<li class="customer-attr-info-block-detail-style">
@@ -72,25 +67,24 @@
 							ng-if="!vm.gender.loading">
 								<div ng-if="!vm.gender.isEditing">{{vm.reformGender(vm.customerBasicInfo.gender)}}</div>
 								<cc-dropdown-select
-								class="customer-attr-info-block-input-style"
-								ng-if="vm.gender.isEditing"
-								model="vm.gender.selected"
-								datalist="vm.gender.listForEditing"
-								mapping="vm.gender.fieldsMap">
+									class="customer-attr-info-block-input-style"
+									ng-if="vm.gender.isEditing"
+									model="vm.gender.selected"
+									datalist="vm.gender.listForEditing"
+									mapping="vm.gender.fieldsMap">
 								</cc-dropdown-select>
-								<i
-								ng-if="vm.prepareEdit && !vm.gender.isEditing"
-								class="iconfont icon-edit1"
-								ng-click="vm.editGender()"
-								></i>
-								<i
-								ng-if="vm.gender.isEditing"
-								class="iconfont icon-finish"
-								ng-click="vm.handleGenderSave()"></i>
-								<i
-								ng-if="vm.gender.isEditing"
-								class="iconfont icon-close"
-								ng-click="vm.cancelGenderSave()"></i>
+								<span class="prepare-edit">
+									<icon-edit1
+										ng-if="vm.prepareEdit && !vm.gender.isEditing"
+										ng-click="vm.editGender()"
+									></icon-edit1>
+									<icon-finish
+										ng-if="vm.gender.isEditing"
+										ng-click="vm.handleGenderSave()"></icon-finish>
+									<icon-close
+										ng-if="vm.gender.isEditing"
+										ng-click="vm.cancelGenderSave()"></icon-close>
+								</span>
 							</div>
 						</li>
 						<li class="customer-attr-info-block-detail-style">
@@ -105,19 +99,17 @@
 								date-only="true"
 								max-date="vm.today"
 								></cc-date-picker>
-								<i
-								ng-if="vm.prepareEdit && !vm.onBirthdayEdit"
-								class="iconfont icon-edit1"
-								ng-click="vm.editBirthday()"
-								></i>
-								<i
-								ng-if="vm.onBirthdayEdit"
-								class="iconfont icon-finish"
-								ng-click="vm.handleBirthdaySave()"></i>
-								<i
-								ng-if="vm.onBirthdayEdit"
-								class="iconfont icon-close"
-								ng-click="vm.cancelBirthdaySave()"></i>
+								<span class="prepare-edit">
+									<icon-edit1
+										ng-if="vm.prepareEdit && !vm.onBirthdayEdit"
+										ng-click="vm.editBirthday()"></icon-edit1>
+									<icon-finish
+										ng-if="vm.onBirthdayEdit"
+										ng-click="vm.handleBirthdaySave()"></icon-finish>
+									<icon-close
+										ng-if="vm.onBirthdayEdit"
+										ng-click="vm.cancelBirthdaySave()"></icon-close>
+								</span>
 							</div>
 						</li>
 						<li class="customer-attr-info-block-detail-style">
@@ -136,27 +128,23 @@
 								id="mobile"
 								ng-model="vm.customerBasicInfo.mobile"
 								ng-keyup="vm.handleMobileEdit($event)"/>
-								<span>
-									<i
-									ng-if="vm.prepareEdit && !vm.onMobileEdit"
-									class="iconfont icon-edit1"
-									ng-click="vm.editMobile()"></i>
-									<i
-									ng-if="vm.prepareEdit && vm.onMobileCheck && !vm.onMobileEdit && vm.customerBasicInfo.mobile"
-									class="iconfont icon-icon_yulan"
-									ng-click="vm.checkMobile()"></i>
-									<i
-									ng-if="vm.prepareEdit && !vm.onMobileCheck && !vm.onMobileEdit && vm.customerBasicInfo.mobile"
-									class="iconfont icon-miwen"
-									ng-click="vm.checkMobile()"></i>
+								<span class="prepare-edit">
+									<icon-edit1
+										ng-if="vm.prepareEdit && !vm.onMobileEdit"
+										ng-click="vm.editMobile()"></icon-edit1>
+									<icon-icon-yulan
+										ng-if="vm.prepareEdit && vm.onMobileCheck && !vm.onMobileEdit && vm.customerBasicInfo.mobile"
+										ng-click="vm.checkMobile()"></icon-icon-yulan>
+									<icon-miwen
+										ng-if="vm.prepareEdit && !vm.onMobileCheck && !vm.onMobileEdit && vm.customerBasicInfo.mobile"
+										ng-click="vm.checkMobile()"></icon-miwen>
+									<icon-finish
+										ng-if="vm.onMobileEdit"
+										ng-click="vm.handleMobileSave()"></icon-finish>
+									<icon-close
+										ng-if="vm.onMobileEdit"
+										ng-click="vm.cancelModileSave()"></icon-close>
 								</span>
-								<i ng-if="vm.onMobileEdit"
-								class="iconfont icon-finish"
-								ng-click="vm.handleMobileSave()"></i>
-								<i
-								ng-if="vm.onMobileEdit"
-								class="iconfont icon-close"
-								ng-click="vm.cancelModileSave()"></i>
 							</div>
 						</li>
 						<li class="customer-attr-info-block-detail-style">
@@ -169,28 +157,23 @@
 								ng-if="vm.onEmailEdit"
 								ng-model="vm.customerBasicInfo.email"
 								ng-keyup="vm.handleEmailEdit($event)"/>
-								<span>
-									<i
-									ng-if="vm.prepareEdit && !vm.onEmailEdit"
-									class="iconfont icon-edit1"
-									ng-click="vm.editEmail()"></i>
-									<i
-									ng-if="vm.prepareEdit && vm.onEmailCheck && !vm.onEmailEdit && vm.customerBasicInfo.email"
-									class="iconfont icon-icon_yulan"
-									ng-click="vm.checkEmail()"></i>
-									<i
-									ng-if="vm.prepareEdit && !vm.onEmailCheck && !vm.onEmailEdit && vm.customerBasicInfo.email"
-									class="iconfont icon-miwen"
-									ng-click="vm.checkEmail()"></i>
+								<span class="prepare-edit">
+									<icon-edit1
+										ng-if="vm.prepareEdit && !vm.onEmailEdit"
+										ng-click="vm.editEmail()"></icon-edit1>
+									<icon-icon-yulan
+										ng-if="vm.prepareEdit && vm.onEmailCheck && !vm.onEmailEdit && vm.customerBasicInfo.email"
+										ng-click="vm.checkEmail()"></icon-icon-yulan>
+									<icon-miwen
+										ng-if="vm.prepareEdit && !vm.onEmailCheck && !vm.onEmailEdit && vm.customerBasicInfo.email"
+										ng-click="vm.checkEmail()"></icon-miwen>
+									<icon-finish
+										ng-if="vm.onEmailEdit"
+										ng-click="vm.handleEmailSave()"></icon-finish>
+									<icon-close
+										ng-if="vm.onEmailEdit"
+										ng-click="vm.cancelEmailSave()"></icon-close>
 								</span>
-								<i
-								ng-if="vm.onEmailEdit"
-								class="iconfont icon-finish"
-								ng-click="vm.handleEmailSave()"></i>
-								<i
-								ng-if="vm.onEmailEdit"
-								class="iconfont icon-close"
-								ng-click="vm.cancelEmailSave()"></i>
 							</div>
 						</li>
 						<li class="address-style">地址：
@@ -209,11 +192,11 @@
 									on-cancel-done="vm.cancelAddressSave()"
 								>
 								</cv-area-select>
-								<i
-								ng-if="vm.prepareEdit && !vm.onAddressEdit"
-								class="iconfont icon-edit1"
-								ng-click="vm.editStateAndCity()"
-								></i>
+								<span class="prepare-edit">
+									<icon-edit1
+										ng-if="vm.prepareEdit && !vm.onAddressEdit"
+										ng-click="vm.editStateAndCity()"></icon-edit1>
+								</span>
 							</div>
 						</li>
 					</ul>

@@ -5,15 +5,14 @@
 
 import { Inject } from 'angular-es-utils';
 import service from '../common/service';
-import {PLAT_LIST} from '../constants/index';
-import utils from '../common/utils'
+import {PLAT_MAP} from '../constants/index';
+import jeasy from 'jeasy'
 
-@Inject('$scope', '$ccTips', '$element', '$filter', '$gridManager')
+@Inject('$ccTips', '$element', '$gridManager')
 export default class OrderCtrl {
     constructor() {
         // 提示弹窗
         this.TipsModal = this._$element[0].querySelector('.modal-body');
-        this.platList = PLAT_LIST;
         this.init();
     }
     /**
@@ -213,7 +212,7 @@ export default class OrderCtrl {
     }
 
     reformPlat(platCode) {
-        return this.platList.filter(item => item.value === platCode)[0] || {};
+        return PLAT_MAP[platCode] || {};
     }
 
     /**
@@ -221,7 +220,7 @@ export default class OrderCtrl {
      * @param productName 商品名称String
      */
     isProductNameOverWidth(productName) {
-        if ((utils.getWidth(productName) / 2) + 20 > 300) return productName;
+        if ((jeasy.getTextWidth(productName) / 2) + 20 > 300) return productName;
         return '';
     }
 }

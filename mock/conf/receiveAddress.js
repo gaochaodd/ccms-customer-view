@@ -8,7 +8,7 @@
 module.exports = {
 	'/data-manage-x/1.0/customer/:uniId/receiver/address': {
 		'list': [{
-			'address': '龙津镇前进路女人街京庄巷2巷9号',
+			'address': '龙津镇前进路女人街京庄巷2巷9号后面那个卖煎饼的小房房旁边的小角落转个弯',
 			'city': '360100',
 			'cityName': '西安市',
 			'district': '360123',
@@ -18,7 +18,7 @@ module.exports = {
 			'state': '360000',
 			'stateName': '陕西省',
 			'town': null,
-			'townName': null,
+			'townName': '这是一个很长的地址为了测试tooltip超过了会怎么样的？？？？',
 			'tradeCount': 3,
 			'uuId': 'ce0368de-b695-4fce-9727-fb57973bfa71'
 		}, {

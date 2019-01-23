@@ -20,7 +20,7 @@ const production = () => ({
 		filename: 'ccms-customer-view.js',
 		libraryTarget: "umd"
 	},
-    externals: ['angular', 'angular-resource', 'angular-ui-router', 'ccms-customer-view', 'ccms-customer-view/index.css'],
+    externals: ['angular', 'angular-resource', 'angular-ui-router', 'ccms-components'],
 	plugins: [
 		new CleanPlugin([buildOutputDir]),
 
@@ -36,9 +36,6 @@ const production = () => ({
 			allChunks: true
 		}),
 
-		new webpack.DefinePlugin({
-            __DEVELOPMENT__: false
-        }),
 		// 配置环境变量
 		new webpack.DefinePlugin({
 			'process.env': {

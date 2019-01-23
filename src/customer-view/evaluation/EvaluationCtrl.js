@@ -7,15 +7,14 @@
 
 import {Inject} from 'angular-es-utils';
 import customerService from '../common/service';
-import {PLAT_LIST} from '../constants/index';
-import utils from '../common/utils';
+import {PLAT_MAP} from '../constants/index';
+import jeasy from 'jeasy';
 
-@Inject('$scope', '$ccTips', '$element', '$filter', '$gridManager')
+@Inject('$ccTips', '$element', '$gridManager')
 export default class EvaluationCtrl {
     constructor() {
         // 提示弹窗
         this.TipsModal = this._$element[0].querySelector('.modal-body');
-        this.platList = PLAT_LIST;
         this.init();
     }
 
@@ -68,7 +67,7 @@ export default class EvaluationCtrl {
             },
             topFullColumn: {
                 template: row => {
-                    row.createdStr = row.created ? this._$filter('date')(new Date(row.created), 'yyyy-MM-dd HH:mm:ss') : '--';
+                    row.createdStr = row.created ? jeasy.moment(row.created).format('yyyy-MM-dd HH:mm:ss') : '--';
 
                     return `<div class="main-evaluation-info-style">
 								<div class="main-evaluation-title-style">
@@ -103,7 +102,6 @@ export default class EvaluationCtrl {
 							</div>`,
                     align: 'left',
                     template: row => {
-                    	console.log('template');
                         return `<div ng-repeat="item in row.rates track by $index"
 									class="evaluation-gird-row-style">
 									<div class="evaluation-gird-first-col-style">
@@ -125,7 +123,9 @@ export default class EvaluationCtrl {
 											<span class="evaluation-gird-rate-time-style">
 												评价时间: {{vm.reformTime(item.estimateTime)}}
 											</span>
-											<i class="iconfont {{vm.reformRate(item.estimateResult)}}"></i>
+											<icon-good-review ng-if="item.estimateResult === 'good'"></icon-good-review>
+											<icon-medium-review ng-if="item.estimateResult === 'neutral'"></icon-medium-review>
+											<icon-poor-review ng-if="item.estimateResult === 'bad'"></icon-poor-review>
 										</div>	
 										<div
 										class="color:#3D3D3D;">
@@ -144,21 +144,11 @@ export default class EvaluationCtrl {
         };
     }
     reformPlat(platCode) {
-        return this.platList.filter(item => item.value === platCode)[0];
+        return PLAT_MAP[platCode] || {};
     }
-    reformRate(estimateReplay) {
-        if (estimateReplay === 'good') {
-            return 'icon-good-review';
-        }
-        if (estimateReplay === 'neutral') {
-            return 'icon-medium-review';
-        }
-        if (estimateReplay === 'bad') {
-            return 'icon-poor-review';
-        }
-    }
+
     reformTime(time) {
-        return time ? this._$filter('date')(new Date(time), 'yyyy-MM-dd HH:mm:ss') : '--';
+        return time ? jeasy.moment(time).format('yyyy-MM-dd HH:mm:ss') : '--';
     }
     onPlatChange() {
         const query = {
@@ -197,7 +187,7 @@ export default class EvaluationCtrl {
      * @param productName 商品名称String
      */
     isProductNameOverWidth(productName) {
-        if ((utils.getWidth(productName) / 2) + 20 > 300) return productName;
+        if ((jeasy.getTextWidth(productName) / 2) + 20 > 300) return productName;
         return '';
     }
 }

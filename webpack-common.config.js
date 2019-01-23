@@ -41,8 +41,8 @@ module.exports = {
                 loader: 'html-loader',
                 options: {
                     minimize: true,
-                    removeComments: false,
-                    collapseWhitespace: false
+                    removeComments: true,
+                    collapseWhitespace: true
                 }
             }],
             exclude: /(node_modules|bower_components)/

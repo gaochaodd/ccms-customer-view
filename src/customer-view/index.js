@@ -4,6 +4,7 @@
  */
 
 import angular from 'angular';
+import iconList from './assets/iconfont';
 import template from './customer_view.tpl.html';
 import controller from './CustomerViewCtrl';
 import './customerViewModal/customer_view_modal_style.less';
@@ -38,6 +39,7 @@ export default angular.module('components.customerView', [
 	customerLabel,
 	evaluation,
 	cvCopyable,
-	cvAreaSelect
+	cvAreaSelect,
+	...iconList
 ]).component('customerView', customerViewOption)
 	.name;
